@@ -1,10 +1,11 @@
 "use client";
 import React from "react";
 import Dashboard from "../components/Dashboard";
-import styled from "styled-components";
 import GeneralStudentData from "../components/GeneralData";
+import styled from "styled-components";
 import Notices from "../components/Notices";
-import SubjectsTaught from "../components/SubjectsTaught";
+import SubjectsTaughtInformation from "../components/SubjectsTaughtInformation";
+import CircularProgressBar from "../components/CircularProgressBar";
 
 const TeacherContainer = styled.div`
   height: 100%;
@@ -18,7 +19,7 @@ const TeacherContainer = styled.div`
     "dash table table table ."
     "dash table table table ."
     "dash table table table ."
-    "dash . . . .";
+    "dash progress . . .";
 
   div:nth-child(1) {
     grid-area: dash;
@@ -35,17 +36,21 @@ const TeacherContainer = styled.div`
   div:nth-child(4) {
     grid-area: table;
   }
+
+  div:nth-child(5) {
+    grid-area: progress;
+  }
 `;
 
-function TeacherMain() {
+function TeacherSubjetInformation() {
   return (
     <TeacherContainer>
       <Dashboard />
       <GeneralStudentData />
       <Notices />
-      <SubjectsTaught />
+      <SubjectsTaughtInformation />
     </TeacherContainer>
   );
 }
 
-export default TeacherMain;
+export default TeacherSubjetInformation;

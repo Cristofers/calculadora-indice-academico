@@ -49,7 +49,11 @@ const InformationContainer = styled.div`
   }
 `;
 
-const GeneralStudentData = () => {
+const GeneralData = () => {
+  // const type = 0;
+  const type = 1;
+  // const type = 2;
+
   return (
     <DatosGeneralesContainer>
       <InformationContainer>
@@ -66,6 +70,14 @@ const GeneralStudentData = () => {
           <span>Área Académica:</span>
           <p>ÁREA DE INGENIERIA</p>
         </div>
+        {type == 1 ? (
+          <div className="InformationContainerElement">
+            <span>Creditos Aprovados:</span>
+            <p>21 de 279</p>
+          </div>
+        ) : (
+          <></>
+        )}
       </InformationContainer>
       <img
         // src="./next.svg"
@@ -78,4 +90,4 @@ const GeneralStudentData = () => {
   );
 };
 
-export default GeneralStudentData;
+export default GeneralData;

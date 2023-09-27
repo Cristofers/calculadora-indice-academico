@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import TinyUserBox from "./TinyUserBox";
 import CloseSesionButton from "./CloseSesion";
+import { useState } from "react";
 
 const DashboardContainer = styled.div`
   display: flex;
@@ -42,9 +43,17 @@ const DashBoardElement = styled.div`
 `;
 
 const Dashboard = () => {
+  // const [dashElements, setDashElements] = useState(["Inicio", "Clasificacion"]);
+  const [dashElements, setDashElements] = useState([
+    "Inicio",
+    "Reportes",
+    "Historial",
+    "Seleccion",
+    "Clasificacion",
+  ]);
   return (
     <DashboardContainer>
-      {["Inicio", "Clasificacion"].map((element) => (
+      {dashElements.map((element) => (
         <DashBoardElement>
           <Image
             src="./next.svg"

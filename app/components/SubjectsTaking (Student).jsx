@@ -1,7 +1,7 @@
 "use client";
 import styled from "styled-components";
 
-const SubjectsTaughtContainer = styled.div`
+const SubjectsTakingContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,7 +22,7 @@ const SubjectsTaughtContainer = styled.div`
     color: #000;
   }
 
-  .SubjectsTaughtList {
+  .SubjectsTakingList {
     border-radius: 17.29px;
     background-color: #fff;
     border: 2.6px solid #6a8c69;
@@ -55,11 +55,11 @@ const SubjectTable = styled.table`
   }
 `;
 
-const SubjectsTaught = () => {
+const SubjectsTaking = () => {
   return (
-    <SubjectsTaughtContainer>
+    <SubjectsTakingContainer>
       <h2>Asignaturas Impartidas</h2>
-      <div className="SubjectsTaughtList">
+      <div className="SubjectsTakingList">
         <SubjectTable>
           <thead>
             <tr>
@@ -73,7 +73,7 @@ const SubjectsTaught = () => {
               <th>Ju</th>
               <th>Vi</th>
               <th>Sa</th>
-              <th>Cantidad de estudiantes</th>
+              <th>Profesor</th>
             </tr>
           </thead>
           <tbody>
@@ -89,14 +89,14 @@ const SubjectsTaught = () => {
                 <td>Ju</td>
                 <td>Vi</td>
                 <td>Sa</td>
-                <td>Cantidad de estudiantes</td>
+                <td>Pepito Grillo</td>
               </tr>
             ))}
           </tbody>
         </SubjectTable>
       </div>
-    </SubjectsTaughtContainer>
+    </SubjectsTakingContainer>
   );
 };
 
-export default SubjectsTaught;
+export default SubjectsTaking;
