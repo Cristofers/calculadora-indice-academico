@@ -5,8 +5,9 @@ const nextConfig = {
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
   },
-  scssOptions: {
-    includePaths: [path.join(__dirname, "styles")],
+  compiler: {
+    // Enables the styled-components SWC transform
+    styledComponents: true,
   },
 };
 

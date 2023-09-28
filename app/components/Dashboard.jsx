@@ -53,8 +53,8 @@ const Dashboard = () => {
   ]);
   return (
     <DashboardContainer>
-      {dashElements.map((element) => (
-        <DashBoardElement>
+      {dashElements.map((element, index) => (
+        <DashBoardElement key={index}>
           <Image
             src="./next.svg"
             alt="Picture of the author"

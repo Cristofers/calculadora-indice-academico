@@ -14,8 +14,8 @@ const CircularProgressBarContainer = styled.div`
   align-content: center;
   background-color: #53736a;
   width: 200px;
-  height: 100%;
   border-radius: 10px;
+  color: white;
 
   .quantity {
     position: absolute;
@@ -26,16 +26,24 @@ const CircularProgressBarContainer = styled.div`
 
   p {
     font-size: 16px;
+    text-align: center;
+    transform: translateY(-5px);
   }
 `;
 
-const DoughtElementContainer = styled.div``;
+const DoughtElementContainer = styled.div`
+  width: 100%;
+  height: 100%;
+`;
 
 const DoughtElement = styled(Doughnut)`
   display: flex;
   justify-content: center;
   align-items: center;
   top: 0;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
 `;
 
 const CircularProgressBar = ({
@@ -54,11 +62,11 @@ const CircularProgressBar = ({
 }) => {
   return (
     <CircularProgressBarContainer>
-      <p className="quantity">{number}</p>
       <DoughtElementContainer>
         <DoughtElement data={Data} />
+        <p className="quantity">{number}</p>
       </DoughtElementContainer>
-      <p>{text}</p>
+      <p className="DescriptionText">{text}</p>
     </CircularProgressBarContainer>
   );
 };

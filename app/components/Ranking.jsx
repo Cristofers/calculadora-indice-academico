@@ -107,7 +107,7 @@ const Ranking = () => {
             "Cristofers",
             "Cristina",
           ].map((element, index) => (
-            <div className="rankingElement">
+            <div className="rankingElement" key={index}>
               <p>{element}</p>
               <div className="elementInformation">
                 {index == 0 && (

@@ -9,16 +9,16 @@ import SubjectsTaught from "../components/SubjectsTaught";
 const TeacherContainer = styled.div`
   height: 100%;
   display: grid;
-  grid-template-columns: 200px repeat(4, 1fr);
+  grid-template-columns: 200px repeat(3, 1fr);
   grid-template-rows: repeat(5, 1fr);
   grid-gap: 10px;
 
   grid-template-areas:
-    "dash general general notices ."
-    "dash table table table ."
-    "dash table table table ."
-    "dash table table table ."
-    "dash . . . .";
+    "dash general general notices"
+    "dash table table table"
+    "dash table table table"
+    "dash table table table"
+    "dash . . .";
 
   div:nth-child(1) {
     grid-area: dash;
