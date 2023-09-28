@@ -4,6 +4,7 @@ import Image from "next/image";
 import TinyUserBox from "./TinyUserBox";
 import CloseSesionButton from "./CloseSesion";
 import { useState } from "react";
+import Link from "next/link";
 
 const DashboardContainer = styled.div`
   display: flex;
@@ -23,7 +24,7 @@ const DashboardContainer = styled.div`
   }
 `;
 
-const DashBoardElement = styled.div`
+const DashBoardElement = styled(Link)`
   width: 90%;
   height: 40px;
   margin: 10px auto;
@@ -45,23 +46,32 @@ const DashBoardElement = styled.div`
 const Dashboard = () => {
   // const [dashElements, setDashElements] = useState(["Inicio", "Clasificacion"]);
   const [dashElements, setDashElements] = useState([
-    "Inicio",
-    "Reportes",
-    "Historial",
-    "Seleccion",
-    "Clasificacion",
+    { text: "Inicio", icon: "Home", link: "./student-main" },
+    { text: "Reportes", icon: "Report", link: "./student-reports" },
+    { text: "Historial", icon: "History", link: "./student-academic-history" },
+    { text: "Seleccion", icon: "Book", link: "./student-subject-selection" },
+    { text: "Clasificacion", icon: "Grade", link: "./student-ranking" },
   ]);
   return (
     <DashboardContainer>
       {dashElements.map((element, index) => (
-        <DashBoardElement key={index}>
-          <Image
-            src="./next.svg"
-            alt="Picture of the author"
-            width={25}
-            height={25}
-          />
-          <p>{element}</p>
+        <DashBoardElement key={index} href={element.link}>
+          {element.icon ? (
+            <Image
+              src={`/icons/${element.icon}.png`}
+              alt="Picture of the author"
+              width={52}
+              height={52}
+            />
+          ) : (
+            <Image
+              src="./next.svg"
+              alt="Picture of the author"
+              width={52}
+              height={52}
+            />
+          )}
+          {element.text != "" && <p>{element.text}</p>}
         </DashBoardElement>
       ))}
       <div className="lastElement">

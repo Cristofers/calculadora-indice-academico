@@ -14,7 +14,7 @@ const GeneralStudentData = () => {
   return (
     <GeneralStudentDataContainer>
       <CircularProgressBar
-        text="Asignaturas aprovadas de 113"
+        text="Asignaturas aprobadas de 113"
         number={10}
         Data={{
           datasets: [

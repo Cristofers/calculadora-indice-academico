@@ -1,8 +1,9 @@
 "use client";
 import styled from "styled-components";
 import Image from "next/image";
+import Link from "next/link";
 
-const CerrarSesionContainer = styled.div`
+const CerrarSesionContainer = styled(Link)`
   display: flex;
   align-content: center;
   justify-content: center;
@@ -27,7 +28,7 @@ const CerrarSesionContainer = styled.div`
 
 const CloseSesionButton = () => {
   return (
-    <CerrarSesionContainer>
+    <CerrarSesionContainer href="./">
       <Image
         src="./next.svg"
         alt="Picture of the author"

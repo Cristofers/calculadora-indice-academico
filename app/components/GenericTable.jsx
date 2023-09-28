@@ -5,23 +5,21 @@ import React from "react";
 const TableContainer = styled.div`
   display: flex;
   align-items: center;
-  /* justify-content: center; */
   flex-direction: column;
   text-align: center;
   font-size: 10.38px;
   color: #fff;
   font-family: "Open Sans";
-
+  margin-top: 10px;
   border-radius: 20px;
   background-color: #e8e8e8;
   max-width: 100%;
-  /* height: 100%; */
 
   h2 {
     text-align: left;
     font-size: 28px;
     color: #000;
-    height: 10%;
+    height: 15%;
   }
 
   .SubjectsTakingList {

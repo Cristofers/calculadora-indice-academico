@@ -72,7 +72,7 @@ const GeneralData = () => {
         </div>
         {type == 1 ? (
           <div className="InformationContainerElement">
-            <span>Creditos Aprovados:</span>
+            <span>Creditos Aprobados:</span>
             <p>21 de 279</p>
           </div>
         ) : (
