@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
-import Dashboard from "../components/Dashboard";
+import Dashboard from "../../components/Dashboard";
 import styled from "styled-components";
-import Ranking from "../components/Ranking";
+import Ranking from "../../components/Ranking";
 const StudentRanking = styled.div`
   height: 100%;
   display: grid;

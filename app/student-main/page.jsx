@@ -1,11 +1,11 @@
 "use client";
 import styled from "styled-components";
 import React from "react";
-import Dashboard from "../components/Dashboard";
-import GeneralData from "../components/GeneralData";
-import Notices from "../components/Notices";
-import GeneralStudentData from "../components/GeneralStudentData";
-import SubjectsTaking from "../components/SubjectsTaking (Student)";
+import Dashboard from "../../components/Dashboard";
+import GeneralData from "../../components/GeneralData";
+import Notices from "../../components/Notices";
+import GeneralStudentData from "../../components/GeneralStudentData";
+import SubjectsTaking from "../../components/SubjectsTaking (Student)";
 const StudentContainer = styled.div`
   height: 100%;
   display: grid;

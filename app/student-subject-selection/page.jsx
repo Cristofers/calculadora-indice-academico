@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import styled from "styled-components";
-import Dashboard from "../components/Dashboard";
+import Dashboard from "../../components/Dashboard";
 
 const Container = styled.div`
   height: 100%;
@@ -106,8 +106,8 @@ const StudentSubjectSelection = () => {
             <p>Asignaturas</p>
           </div>
           <div className="actualSubjectsElements">
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((element) => (
-              <div className="actualSubjectElement">
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((element, idx) => (
+              <div className="actualSubjectElement" key={idx}>
                 <p>CBM102-02</p>
                 <p>CALCULO DIFERENCIAL</p>
                 <p>5</p>

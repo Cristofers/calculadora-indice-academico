@@ -43,7 +43,8 @@ const DashBoardElement = styled(Link)`
   }
 `;
 
-const Dashboard = () => {
+const Dashboard = ({ supa }) => {
+  console.log(supa);
   // const [dashElements, setDashElements] = useState(["Inicio", "Clasificacion"]);
   const [dashElements, setDashElements] = useState([
     { text: "Inicio", icon: "Home", link: "./student-main" },

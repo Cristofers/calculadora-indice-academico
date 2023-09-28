@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import styled from "styled-components";
-import Dashboard from "../components/Dashboard";
+import Dashboard from "../../components/Dashboard";
 import Image from "next/image";
 const Container = styled.div`
   height: 100%;

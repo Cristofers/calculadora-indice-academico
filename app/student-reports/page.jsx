@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
 import styled from "styled-components";
-import Dashboard from "../components/Dashboard";
-import GeneralStudentData from "../components/GeneralStudentData";
+import Dashboard from "../../components/Dashboard";
+import GeneralStudentData from "../../components/GeneralStudentData";
 
 const StudentReportContainer = styled.div`
   height: 100%;

@@ -1,10 +1,10 @@
 "use client";
 import React from "react";
-import Dashboard from "../components/Dashboard";
+import Dashboard from "../../components/Dashboard";
 import styled from "styled-components";
-import GeneralStudentData from "../components/GeneralData";
-import Notices from "../components/Notices";
-import SubjectsTaught from "../components/SubjectsTaught";
+import GeneralStudentData from "../../components/GeneralData";
+import Notices from "../../components/Notices";
+import SubjectsTaught from "../../components/SubjectsTaught";
 
 const TeacherContainer = styled.div`
   height: 100%;

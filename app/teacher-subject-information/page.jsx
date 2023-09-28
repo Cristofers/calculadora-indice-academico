@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
-import Dashboard from "../components/Dashboard";
-import GeneralStudentData from "../components/GeneralData";
+import Dashboard from "../../components/Dashboard";
+import GeneralStudentData from "../../components/GeneralData";
 import styled from "styled-components";
-import Notices from "../components/Notices";
-import SubjectsTaughtInformation from "../components/SubjectsTaughtInformation";
-import CircularProgressBar from "../components/CircularProgressBar";
+import Notices from "../../components/Notices";
+import SubjectsTaughtInformation from "../../components/SubjectsTaughtInformation";
+import CircularProgressBar from "../../components/CircularProgressBar";
 
 const TeacherContainer = styled.div`
   height: 100%;

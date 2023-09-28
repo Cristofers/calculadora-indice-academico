@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
 import styled from "styled-components";
-import Dashboard from "../components/Dashboard";
-import GenericTable from "../components/GenericTable";
+import Dashboard from "../../components/Dashboard";
+import GenericTable from "../../components/GenericTable";
 
 const PageContainer = styled.div`
   height: 100%;
