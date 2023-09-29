@@ -49,7 +49,9 @@ function StudentMain() {
       <GeneralData />
       <Notices />
       <GeneralStudentData />
-      <SubjectsTaking />
+      <SubjectsTaking
+        trymestry={sessionStorage.getItem("estudiante_trimestre")}
+      />
     </StudentContainer>
   );
 }

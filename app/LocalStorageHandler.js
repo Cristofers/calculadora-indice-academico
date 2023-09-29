@@ -6,6 +6,7 @@ const LSH_SaveUserInformation = (user) => {
   sessionStorage.setItem("usuario_nombre", user.usuario_nombre);
   sessionStorage.setItem("usuario_rol", user.usuario_rol);
   sessionStorage.setItem("usuario_tel", user.usuario_tel);
+  sessionStorage.setItem("estudiante_trimestre", user.estudiante_trimestre);
   // -----------------------------------------
   if (user.usuario_rol == 1) {
     sessionStorage.setItem(
@@ -59,6 +60,7 @@ const LSH_GetUserInformation = () => {
   newUser.usuario_nombre = sessionStorage.getItem("usuario_nombre");
   newUser.usuario_rol = sessionStorage.getItem("usuario_rol");
   newUser.usuario_tel = sessionStorage.getItem("usuario_tel");
+  newUser.estudiante_trimestre = sessionStorage.getItem("estudiante_trimestre");
   if (newUser.usuario_rol == 1) {
     newUser.estudiante_asignaturas_aprobadas = sessionStorage.getItem(
       "estudiante_asignaturas_aprobadas"

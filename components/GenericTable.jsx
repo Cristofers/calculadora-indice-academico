@@ -71,6 +71,7 @@ const TableContent = styled.div`
 `;
 
 const GenericTable = ({ title = "", columns = [], data = [] }) => {
+  console.log(data);
   return (
     <TableContainer>
       {title != "" && <h2>{title}</h2>}
@@ -83,16 +84,19 @@ const GenericTable = ({ title = "", columns = [], data = [] }) => {
               </div>
             ))}
           </div>
-
-          {data.map((dataElements, idx) => (
-            <div key={idx} className="tr body">
-              {dataElements.map((element, idx2) => (
-                <div className="col" key={idx + "_" + idx2}>
-                  {element}
+          {Array.isArray(data) && (
+            <>
+              {data.map((dataElements, idx) => (
+                <div key={idx} className="tr body">
+                  {dataElements.map((element, idx2) => (
+                    <div className="col" key={idx + "_" + idx2}>
+                      {element}
+                    </div>
+                  ))}
                 </div>
               ))}
-            </div>
-          ))}
+            </>
+          )}
         </TableContent>
       </div>
     </TableContainer>

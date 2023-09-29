@@ -3,7 +3,8 @@ import React from "react";
 import styled from "styled-components";
 import Dashboard from "../../components/Dashboard";
 import GeneralStudentData from "../../components/GeneralStudentData";
-
+import { useEffect, useState } from "react";
+import { createClient } from "@supabase/supabase-js";
 const StudentReportContainer = styled.div`
   height: 100%;
   display: grid;
@@ -51,6 +52,23 @@ const StudentReportContainer = styled.div`
 `;
 
 const StudentReport = () => {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const supabase = createClient(supabaseUrl, supabaseKey);
+  const [Trymestry, setTrymestry] = useState(1);
+
+  useEffect(() => {
+    async function fetchData() {
+      let { data: estudiante, error } = await supabase
+        .from("estudiante")
+        .select("estudiante_trimestre")
+        .eq("estudiante_id", sessionStorage.getItem("usuario_id"));
+
+      await setTrymestry(estudiante[0]);
+    }
+    fetchData();
+    console.log(Trymestry);
+  }, []);
   return (
     <StudentReportContainer>
       <Dashboard />
@@ -61,11 +79,11 @@ const StudentReport = () => {
         </div>
         <div className="studentReportElement">
           <h2>Octubre - Enero</h2>
-          <GeneralStudentData />
+          <GeneralStudentData trymestry={1} />
         </div>
         <div className="studentReportElement">
           <h2>Enero - Marzo</h2>
-          <GeneralStudentData />
+          <GeneralStudentData trymestry={2} />
         </div>
       </div>
     </StudentReportContainer>

@@ -47,7 +47,7 @@ const Dashboard = () => {
   // const [dashElements, setDashElements] = useState(["Inicio", "Clasificacion"]);
   const [dashElements, setDashElements] = useState([
     { text: "Inicio", icon: "Home", link: "./student-main" },
-    { text: "Reportes", icon: "Report", link: "./student-reports" },
+    // { text: "Reportes", icon: "Report", link: "./student-reports" },
     { text: "Historial", icon: "History", link: "./student-academic-history" },
     { text: "Seleccion", icon: "Book", link: "./student-subject-selection" },
     { text: "Clasificacion", icon: "Grade", link: "./student-ranking" },

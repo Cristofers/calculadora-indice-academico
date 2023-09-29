@@ -7,6 +7,7 @@ import {
   LSH_GetUserInformation,
   LSH_UserLogged,
 } from "@/app/LocalStorageHandler";
+import { createClient } from "@supabase/supabase-js";
 
 const GeneralStudentDataContainer = styled.div`
   display: flex;
@@ -15,13 +16,28 @@ const GeneralStudentDataContainer = styled.div`
   height: 100%;
 `;
 
-const GeneralStudentData = () => {
+const GeneralStudentData = ({ trymestry = -1 }) => {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const supabase = createClient(supabaseUrl, supabaseKey);
   const router = useRouter();
   const [User, setUser] = useState({});
 
   useEffect(() => {
+    async function fetchData() {
+      let { data: estudiante_seccion, error } = await supabase
+        .from("estudiante_seccion")
+        .select("*");
+
+      // console.log(estudiante_seccion);
+    }
+
     if (LSH_UserLogged) {
-      setUser(LSH_GetUserInformation);
+      if (trymestry == -1) {
+        setUser(LSH_GetUserInformation);
+      } else {
+        fetchData();
+      }
     } else {
       router.push("/student-main");
     }
