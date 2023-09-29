@@ -87,13 +87,13 @@ const UserConfig = () => {
   const GetCiclo = (ciclo) => {
     switch (ciclo) {
       case 1:
-        return "Enero - Marzo";
+        return "Febrero - Abril";
       case 2:
-        return "Enero - Marzo";
+        return "Mayo - Julio";
       case 3:
-        return "Enero - Marzo";
+        return "Agosto - Octubre";
       case 4:
-        return "Enero - Marzo";
+        return "Noviembre - Enero";
     }
   };
 

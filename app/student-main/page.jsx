@@ -51,9 +51,6 @@ function StudentMain() {
     return <></>;
   }
 
-  // useEffect(() => {
-  // }, []);
-
   return (
     <StudentContainer>
       <Dashboard />
