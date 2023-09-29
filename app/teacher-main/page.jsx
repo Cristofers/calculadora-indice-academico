@@ -5,6 +5,8 @@ import styled from "styled-components";
 import GeneralStudentData from "../../components/GeneralData";
 import Notices from "../../components/Notices";
 import SubjectsTaught from "../../components/SubjectsTaught";
+import { LSH_UserLogged } from "../LocalStorageHandler";
+import { useRouter } from "next/navigation";
 
 const TeacherContainer = styled.div`
   height: 100%;
@@ -38,6 +40,12 @@ const TeacherContainer = styled.div`
 `;
 
 function TeacherMain() {
+  const router = useRouter();
+  if (!LSH_UserLogged()) {
+    router.push("/user-login");
+    return <></>;
+  }
+
   return (
     <TeacherContainer>
       <Dashboard />

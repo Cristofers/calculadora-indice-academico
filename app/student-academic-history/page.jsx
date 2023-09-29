@@ -2,10 +2,11 @@
 import React from "react";
 import styled from "styled-components";
 import Dashboard from "../../components/Dashboard";
-import GenericTable from "../../components/GenericTable";
 import { createClient } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
 import SubjectsTaking from "@/components/SubjectsTaking (Student)";
+import { LSH_UserLogged } from "../LocalStorageHandler";
+import { useRouter } from "next/navigation";
 
 const PageContainer = styled.div`
   height: 100%;
@@ -47,11 +48,15 @@ const Content = styled.div`
 `;
 
 const UserConfig = () => {
+  const [TrimestryList, setTrimestryList] = useState([]);
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   const supabase = createClient(supabaseUrl, supabaseKey);
 
-  const [TrimestryList, setTrimestryList] = useState([]);
+  const router = useRouter();
+  if (!LSH_UserLogged()) {
+    router.push("/user-login");
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -67,46 +72,17 @@ const UserConfig = () => {
           .eq("estudiante_id", sessionStorage.getItem("usuario_id"))
           .eq("trimestre_cursado", index);
 
-        console.log(index, estudiante_seccion[0]);
         // estudiante_seccion.map((trymestry) => {
         if (estudiante_seccion[0]) {
           newTrymestry.push(estudiante_seccion[0].trimestre_cursado);
         }
         // });
       }
-      console.log(newTrymestry);
+
       setTrimestryList(newTrymestry);
     }
     fetchData();
   }, []);
-
-  // const GetTrymestrySubjectsData = async (trymestry) => {
-  //   let { data: estudiante_seccion, error } = await supabase
-  //     .from("estudiante_seccion")
-  //     .select("*,seccion(*,asignatura(*))")
-  //     .eq("trimestre_cursado", trymestry)
-  //     .eq("estudiante_id", sessionStorage.getItem("usuario_id"));
-
-  //   let newArray = [];
-  //   estudiante_seccion.map((element) => {
-  //     newArray.push([
-  //       element.seccion.asignatura_codigo +
-  //         " - " +
-  //         element.seccion.seccion_numero,
-  //       element.seccion.asignatura.asignatura_creditos,
-  //       element.seccion.asignatura.asignatura_nombre,
-  //       element.aula_codigo,
-  //       "",
-  //       "",
-  //       "",
-  //       "",
-  //       "",
-  //       "",
-  //       element.profesor_nom,
-  //     ]);
-  //   });
-  //   return newArray;
-  // };
 
   const GetCiclo = (ciclo) => {
     switch (ciclo) {
@@ -130,27 +106,9 @@ const UserConfig = () => {
           {TrimestryList.map((element, idx) => (
             <SubjectsTaking
               trymestry={element}
-              key={1}
+              key={idx}
               title={GetCiclo(element)}
             />
-            // <GenericTable
-            //   key={idx}
-            //   title={GetCiclo(element)}
-            //   columns={[
-            //     "Seccion",
-            //     "Cr",
-            //     "Asignatura",
-            //     "Aula",
-            //     "Lun",
-            //     "Mar",
-            //     "Mier",
-            //     "Ju",
-            //     "Vi",
-            //     "Sa",
-            //     "Profesor",
-            //   ]}
-            //   data={TrimestryData[idx]}
-            // />
           ))}
         </div>
       </Content>

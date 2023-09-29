@@ -39,7 +39,6 @@ const SubjectsTaking = ({ trymestry, title = "Asignaturas Impartidas" }) => {
       });
     }
     fetchData();
-    console.log(Data);
   }, []);
   return (
     <GenericTable

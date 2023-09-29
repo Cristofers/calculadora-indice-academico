@@ -5,7 +5,8 @@ import GeneralStudentData from "../../components/GeneralData";
 import styled from "styled-components";
 import Notices from "../../components/Notices";
 import SubjectsTaughtInformation from "../../components/SubjectsTaughtInformation";
-import CircularProgressBar from "../../components/CircularProgressBar";
+import { LSH_UserLogged } from "../LocalStorageHandler";
+import { useRouter } from "next/navigation";
 
 const TeacherContainer = styled.div`
   height: 100%;
@@ -43,6 +44,11 @@ const TeacherContainer = styled.div`
 `;
 
 function TeacherSubjetInformation() {
+  const router = useRouter();
+  if (!LSH_UserLogged()) {
+    router.push("/user-login");
+    return <></>;
+  }
   return (
     <TeacherContainer>
       <Dashboard />

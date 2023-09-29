@@ -5,6 +5,9 @@ import Dashboard from "../../components/Dashboard";
 import GeneralStudentData from "../../components/GeneralStudentData";
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
+import { LSH_UserLogged } from "../LocalStorageHandler";
+import { useRouter } from "next/navigation";
+
 const StudentReportContainer = styled.div`
   height: 100%;
   display: grid;
@@ -52,6 +55,12 @@ const StudentReportContainer = styled.div`
 `;
 
 const StudentReport = () => {
+  const router = useRouter();
+  if (!LSH_UserLogged()) {
+    router.push("/user-login");
+    return <></>;
+  }
+
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   const supabase = createClient(supabaseUrl, supabaseKey);
@@ -67,7 +76,6 @@ const StudentReport = () => {
       await setTrymestry(estudiante[0]);
     }
     fetchData();
-    console.log(Trymestry);
   }, []);
   return (
     <StudentReportContainer>

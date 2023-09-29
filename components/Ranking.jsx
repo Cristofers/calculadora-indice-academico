@@ -104,7 +104,7 @@ const Ranking = () => {
       let { data: estudiante, error } = await supabase
         .from("estudiante")
         .select("*, usuario!inner(usuario_nombre, usuario_apellido)");
-      console.log(estudiante);
+
       setData(estudiante);
     }
     fetchData();

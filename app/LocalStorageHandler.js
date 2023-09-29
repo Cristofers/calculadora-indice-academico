@@ -84,12 +84,24 @@ const LSH_GetUserInformation = () => {
 };
 
 const LSH_UserLogged = () => {
-  if (sessionStorage.getItem("user").usuario_rol >= 0) {
+  // if (sessionStorage != undefined) return true;
+  if (
+    sessionStorage.getItem("usuario_id") &&
+    sessionStorage.getItem("usuario_rol") >= 0
+  ) {
     return true;
   }
   return false;
 };
 
+const LSH_Logout = () => {
+  sessionStorage.clear();
+};
 // const LSH_
 
-export { LSH_SaveUserInformation, LSH_GetUserInformation, LSH_UserLogged };
+export {
+  LSH_SaveUserInformation,
+  LSH_GetUserInformation,
+  LSH_UserLogged,
+  LSH_Logout,
+};

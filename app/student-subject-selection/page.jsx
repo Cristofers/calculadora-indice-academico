@@ -1,7 +1,9 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Dashboard from "../../components/Dashboard";
+import { LSH_UserLogged } from "../LocalStorageHandler";
+import { useRouter } from "next/navigation";
 
 const Container = styled.div`
   height: 100%;
@@ -89,6 +91,11 @@ const Content = styled.div`
 `;
 
 const StudentSubjectSelection = () => {
+  const router = useRouter();
+  if (!LSH_UserLogged()) {
+    router.push("/user-login");
+    return <></>;
+  }
   return (
     <Container>
       <Dashboard />

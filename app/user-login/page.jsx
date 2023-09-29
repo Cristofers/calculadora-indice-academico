@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import Link from "next/link";
@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createClient } from "@supabase/supabase-js";
 import { LSH_SaveUserInformation } from "../LocalStorageHandler";
+import { LSH_UserLogged } from "../LocalStorageHandler";
 
 const Container = styled.div`
   height: 100%;
@@ -100,21 +101,30 @@ const Container = styled.div`
 `;
 
 const Login = () => {
+  const [inputValues, setInputValues] = useState({});
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   const supabase = createClient(supabaseUrl, supabaseKey);
   const router = useRouter();
-  //   const supabase = createClientComponentClient();
+
+  if (LSH_UserLogged()) {
+    router.push("/student-main");
+  }
+  const handleInputChange = (event) => {
+    const newInputValues = { ...inputValues };
+    newInputValues[event.target.id] = event.target.value;
+    setInputValues(newInputValues);
+  };
 
   const LogHandler = async (e) => {
     e.preventDefault();
+    console.log(inputValues);
     let { data: usuario, error } = await supabase
       .from("usuario")
       .select("*,estudiante (*, carrera(*, area(*)))")
-      .eq("usuario_correo", "vadezcristofers@gmail.com")
-      .eq("usuario_password", "supapassword");
+      .eq("usuario_correo", inputValues.email)
+      .eq("usuario_password", inputValues.pass);
 
-    console.log(usuario);
     if (usuario[0] != null) {
       LSH_SaveUserInformation(usuario[0]);
       router.push("/student-main");
@@ -134,8 +144,18 @@ const Login = () => {
       <div>
         <h2>Iniciar Sesión</h2>
         <form action="">
-          <input type="text" id="email" placeholder="email" />
-          <input type="password" id="pass" placeholder="password" />
+          <input
+            type="text"
+            id="email"
+            placeholder="email"
+            onChange={(e) => handleInputChange(e)}
+          />
+          <input
+            type="password"
+            id="pass"
+            placeholder="password"
+            onChange={(e) => handleInputChange(e)}
+          />
           <div className="rememberMeContainer">
             <div className="rememberMe">
               <input type="checkbox" name="check" id="" />

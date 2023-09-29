@@ -1,11 +1,13 @@
 "use client";
 import styled from "styled-components";
-import React from "react";
+import React, { useEffect } from "react";
 import Dashboard from "../../components/Dashboard";
 import GeneralData from "../../components/GeneralData";
 import Notices from "../../components/Notices";
 import GeneralStudentData from "../../components/GeneralStudentData";
 import SubjectsTaking from "../../components/SubjectsTaking (Student)";
+import { LSH_UserLogged } from "../LocalStorageHandler";
+import { useRouter } from "next/navigation";
 
 const StudentContainer = styled.div`
   height: 100%;
@@ -43,6 +45,15 @@ const StudentContainer = styled.div`
 `;
 
 function StudentMain() {
+  const router = useRouter();
+  if (!LSH_UserLogged()) {
+    router.push("/user-login");
+    return <></>;
+  }
+
+  // useEffect(() => {
+  // }, []);
+
   return (
     <StudentContainer>
       <Dashboard />

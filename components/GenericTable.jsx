@@ -71,7 +71,6 @@ const TableContent = styled.div`
 `;
 
 const GenericTable = ({ title = "", columns = [], data = [] }) => {
-  console.log(data);
   return (
     <TableContainer>
       {title != "" && <h2>{title}</h2>}

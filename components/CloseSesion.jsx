@@ -1,9 +1,9 @@
 "use client";
 import styled from "styled-components";
 import Image from "next/image";
-import Link from "next/link";
-
-const CerrarSesionContainer = styled(Link)`
+import { useRouter } from "next/navigation";
+import { LSH_Logout } from "@/app/LocalStorageHandler";
+const CerrarSesionContainer = styled.button`
   display: flex;
   align-content: center;
   justify-content: center;
@@ -27,8 +27,15 @@ const CerrarSesionContainer = styled(Link)`
 `;
 
 const CloseSesionButton = () => {
+  const router = useRouter();
+
+  const LogOutHandler = () => {
+    LSH_Logout();
+    router.push("/user-login");
+  };
+
   return (
-    <CerrarSesionContainer href="./">
+    <CerrarSesionContainer onClick={() => LogOutHandler()}>
       <Image
         src="./next.svg"
         alt="Picture of the author"
