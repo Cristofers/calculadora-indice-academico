@@ -1,6 +1,8 @@
 "use client";
 import React from "react";
 import styled from "styled-components";
+import { createClient } from "@supabase/supabase-js";
+import { useState, useEffect } from "react";
 
 const RankingExternalContainer = styled.div`
   background-color: #efefef;
@@ -87,6 +89,22 @@ const RankingElementContainer = styled.div`
 `;
 
 const Ranking = () => {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const supabase = createClient(supabaseUrl, supabaseKey);
+  const [Data, setData] = useState([[]]);
+
+  useEffect(() => {
+    async function fetchData() {
+      let { data: estudiante, error } = await supabase
+        .from("estudiante")
+        .select("*, usuario!inner(usuario_nombre, usuario_apellido)")
+      setData(estudiante);
+      console.log(estudiante);
+    }
+    fetchData();
+  }, []);
+
   return (
     <RankingExternalContainer>
       <RankingContainer>
@@ -99,16 +117,9 @@ const Ranking = () => {
         </div>
 
         <RankingElementContainer>
-          {[
-            "Cristofers",
-            "Cristina",
-            "Cristofers",
-            "Cristina",
-            "Cristofers",
-            "Cristina",
-          ].map((element, index) => (
+          {Data.map((element, index) => (
             <div className="rankingElement" key={index}>
-              <p>{element}</p>
+              <p>{element.usuario.usuario_nombre + " " + element.usuario.usuario_apellido}</p>
               <div className="elementInformation">
                 {index == 0 && (
                   <img
@@ -128,9 +139,13 @@ const Ranking = () => {
                     alt="Picture of the author"
                   />
                 )}
-                <p>4.0</p>
-                <p>4.0</p>
-                <p>Cum Lauder</p>
+                <p>{element.estudiante_indice}</p>
+                <p>{element.estudiante_indice_trimestral}</p>
+                {
+                  element.estudiante_indice >= 3.8 ? (<p>Suma Cumlaude</p>) : 
+                  element.estudiante_indice >= 3.6 ? (<p>Magna Cumlaude</p>) :
+                  element.estudiante_indice >= 3.4 ? (<p>Cumlaude</p>) : (<p>sin honores</p>)
+                }
               </div>
             </div>
           ))}
