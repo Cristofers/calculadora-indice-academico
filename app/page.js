@@ -1,17 +1,19 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
+"use client";
 import Link from "next/link";
 import Dashboard from "@/components/Dashboard";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default async function Home() {
-  const supabase = createServerComponentClient({ cookies });
-
-  let { data: area, error } = await supabase.from("area").select("*");
+  const router = useRouter();
+  useEffect(() => {
+    router.push("/user-login");
+  }, []);
 
   return (
     <main>
       <Link href="/student-main">Agua de coco</Link>
-      <Dashboard supa={area} />
+      <Dashboard />
     </main>
   );
 }

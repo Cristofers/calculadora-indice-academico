@@ -1,5 +1,11 @@
 "use client";
 import styled from "styled-components";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import {
+  LSH_GetUserInformation,
+  LSH_UserLogged,
+} from "@/app/LocalStorageHandler";
 
 const DatosGeneralesContainer = styled.div`
   /* position: relative; */
@@ -33,13 +39,13 @@ const InformationContainer = styled.div`
 
     span {
       font-weight: bold;
-      font-size: 12px;
+      font-size: 25px;
       text-align: left;
     }
 
     p {
       margin-left: 25px;
-      font-size: 10px;
+      font-size: 20px;
     }
   }
 
@@ -50,9 +56,16 @@ const InformationContainer = styled.div`
 `;
 
 const GeneralData = () => {
-  // const type = 0;
-  const type = 1;
-  // const type = 2;
+  const router = useRouter();
+  const [User, setUser] = useState({});
+
+  useEffect(() => {
+    if (LSH_UserLogged) {
+      setUser(LSH_GetUserInformation);
+    } else {
+      router.push("/student-main");
+    }
+  }, []);
 
   return (
     <DatosGeneralesContainer>
@@ -60,20 +73,23 @@ const GeneralData = () => {
         <h2 className="title">Datos generales</h2>
         <div className="InformationContainerElement">
           <span>Nombre:</span>
-          <p>Cristofers Valdez Quintin</p>
+          <p>{User.usuario_nombre + " " + User.usuario_apellido}</p>
         </div>
         <div className="InformationContainerElement">
           <span>ID:</span>
-          <p>1104326</p>
+          <p>{User.usuario_id}</p>
         </div>
         <div className="InformationContainerElement">
           <span>Área Académica:</span>
-          <p>ÁREA DE INGENIERIA</p>
+          <p>{User.area_nombre}</p>
         </div>
-        {type == 1 ? (
+        {User.usuario_rol == 1 ? (
           <div className="InformationContainerElement">
-            <span>Creditos Aprobados:</span>
-            <p>21 de 279</p>
+            <span>Asignaturas Aprobadas:</span>
+            <p>
+              {User.estudiante_asignaturas_aprobadas} de{" "}
+              {User.carrera_asignatura_total}
+            </p>
           </div>
         ) : (
           <></>

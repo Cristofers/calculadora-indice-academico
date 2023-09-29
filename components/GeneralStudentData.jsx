@@ -1,7 +1,12 @@
 "use client";
 import styled from "styled-components";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CircularProgressBar from "./CircularProgressBar";
+import { useRouter } from "next/navigation";
+import {
+  LSH_GetUserInformation,
+  LSH_UserLogged,
+} from "@/app/LocalStorageHandler";
 
 const GeneralStudentDataContainer = styled.div`
   display: flex;
@@ -11,15 +16,30 @@ const GeneralStudentDataContainer = styled.div`
 `;
 
 const GeneralStudentData = () => {
+  const router = useRouter();
+  const [User, setUser] = useState({});
+
+  useEffect(() => {
+    if (LSH_UserLogged) {
+      setUser(LSH_GetUserInformation);
+    } else {
+      router.push("/student-main");
+    }
+  }, []);
+
   return (
     <GeneralStudentDataContainer>
       <CircularProgressBar
-        text="Asignaturas aprobadas de 113"
-        number={10}
+        text={`Asignaturas aprobadas de ${User.carrera_asignatura_total}`}
+        number={User.estudiante_asignaturas_aprobadas}
         Data={{
           datasets: [
             {
-              data: [10, 113 + 10],
+              data: [
+                User.estudiante_asignaturas_aprobadas,
+                User.carrera_asignatura_total -
+                  User.estudiante_asignaturas_aprobadas,
+              ],
               borderColor: "transparent",
               backgroundColor: ["#C2C0A6", "#ffffff"],
             },
@@ -28,11 +48,11 @@ const GeneralStudentData = () => {
       />
       <CircularProgressBar
         text="Índice General de 4"
-        number={4}
+        number={User.estudiante_indice}
         Data={{
           datasets: [
             {
-              data: [4],
+              data: [User.estudiante_indice, 4 - User.estudiante_indice],
               borderColor: "transparent",
               backgroundColor: ["#C2C0A6", "#ffffff"],
             },
@@ -40,12 +60,15 @@ const GeneralStudentData = () => {
         }}
       />
       <CircularProgressBar
-        text="Trimestres  cursados de 11 "
-        number={2}
+        text={`Trimestres  cursados de ${User.carrera_trimestres}`}
+        number={User.estudiante_trimestre}
         Data={{
           datasets: [
             {
-              data: [2, 2 + 11],
+              data: [
+                User.estudiante_trimestre,
+                User.carrera_trimestres - User.estudiante_trimestre,
+              ],
               borderColor: "transparent",
               backgroundColor: ["#C2C0A6", "#ffffff"],
             },
@@ -54,11 +77,14 @@ const GeneralStudentData = () => {
       />
       <CircularProgressBar
         text="Créditos aprobados de 279"
-        number={21}
+        number={User.estudiante_creditos_aprobados}
         Data={{
           datasets: [
             {
-              data: [21, 21 + 279],
+              data: [
+                User.estudiante_creditos_aprobados,
+                User.carrera_creditos - User.estudiante_creditos_aprobados,
+              ],
               borderColor: "transparent",
               backgroundColor: ["#C2C0A6", "#ffffff"],
             },
