@@ -1,6 +1,7 @@
 "use client";
 import styled from "styled-components";
 import Link from "next/link";
+import Image from "next/image";
 
 const TinyUserBoxContainer = styled(Link)`
   display: flex;
@@ -40,12 +41,11 @@ const TinyUserBoxContainer = styled(Link)`
 const TinyUserBox = () => {
   return (
     <TinyUserBoxContainer href="./user-config">
-      <img
-        // src="./next.svg"
-        src="https://assetsio.reedpopcdn.com/Honkai-Star-Rail-Silver-Wolf-best-build%2C-Ascension-materials%2C-Trace-materials%2C-team%2C-and-Light-Cone-cover.jpg?width=1200&height=1200&fit=crop&quality=100&format=png&enable=upscale&auto=webp"
+      <Image
+        src="/profilePictures/Default.png"
         alt="Picture of the author"
-        // width={25}
-        // height={25}
+        width={25}
+        height={25}
       />
       <div>
         <p className="UserName">Cristofers Valdez Quintin</p>

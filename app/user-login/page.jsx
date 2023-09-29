@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+// import Swal from "sweetalert2";
 import Image from "next/image";
 import styled from "styled-components";
 import Link from "next/link";
@@ -129,6 +130,14 @@ const Login = () => {
       LSH_SaveUserInformation(usuario[0]);
       router.push("/student-main");
     }
+    //  else {
+    //   Swal.fire({
+    //     title: "Error!",
+    //     text: "¡Usuario no valido!",
+    //     icon: "error",
+    //     confirmButtonText: "Cool",
+    //   });
+    // }
   };
 
   return (

@@ -130,7 +130,7 @@ const UserConfig = () => {
         <form action="">
           <div className="imageInformation">
             <Image
-              src="/profilePictures/145126.jpg"
+              src="/profilePictures/Default.png"
               alt="Picture of the author"
               width={500}
               height={500}

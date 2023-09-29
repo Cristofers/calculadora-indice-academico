@@ -1,5 +1,6 @@
 "use client";
 import styled from "styled-components";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
@@ -10,7 +11,8 @@ import {
 const DatosGeneralesContainer = styled.div`
   /* position: relative; */
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  align-items: center;
   width: 100%;
   height: 100%;
   border-radius: 15.63px;
@@ -22,7 +24,9 @@ const DatosGeneralesContainer = styled.div`
 
   img {
     border-radius: 10px;
-    margin: 10px;
+    /* margin: 10px; */
+    height: 80%;
+    width: 30%;
   }
 `;
 
@@ -31,7 +35,7 @@ const InformationContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-around;
-  margin-left: 25px;
+  /* margin-left: 25px; */
   height: 100%;
 
   .InformationContainerElement {
@@ -95,12 +99,11 @@ const GeneralData = () => {
           <></>
         )}
       </InformationContainer>
-      <img
-        // src="./next.svg"
-        src="https://assetsio.reedpopcdn.com/Honkai-Star-Rail-Silver-Wolf-best-build%2C-Ascension-materials%2C-Trace-materials%2C-team%2C-and-Light-Cone-cover.jpg?width=1200&height=1200&fit=crop&quality=100&format=png&enable=upscale&auto=webp"
+      <Image
+        src="/profilePictures/Default.png"
         alt="Picture of the author"
-        // width={25}
-        // height={25}
+        width={25}
+        height={25}
       />
     </DatosGeneralesContainer>
   );
