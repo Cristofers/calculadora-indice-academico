@@ -87,6 +87,21 @@ const RankingElementContainer = styled.div`
       }
     }
   }
+
+  .rankingElement:nth-child(1) {
+    p {
+      background-color: transparent;
+      border-radius: 0;
+      min-width: 50px;
+      width: 30%;
+      font-size: 15px;
+      color: rgba(0, 0, 0, 0.5);
+    }
+
+    .elementInformation {
+      text-align: center;
+    }
+  }
 `;
 
 const Ranking = () => {
@@ -103,7 +118,8 @@ const Ranking = () => {
     async function fetchData() {
       let { data: estudiante, error } = await supabase
         .from("estudiante")
-        .select("*, usuario!inner(usuario_nombre, usuario_apellido)");
+        .select("*, usuario!inner(usuario_nombre, usuario_apellido)")
+        .order("estudiante_indice", { ascending: false });
 
       setData(estudiante);
     }
@@ -122,6 +138,14 @@ const Ranking = () => {
         </div>
 
         <RankingElementContainer>
+          <div className="rankingElement">
+            <p>Estudiante</p>
+            <div className="elementInformation">
+              <p>General</p>
+              <p>Trimestre</p>
+              <p>Honor</p>
+            </div>
+          </div>
           {Data.map((element, index) => (
             <div className="rankingElement" key={index}>
               <p>
