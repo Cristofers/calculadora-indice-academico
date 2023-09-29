@@ -88,4 +88,6 @@ const LSH_UserLogged = () => {
   return false;
 };
 
+// const LSH_
+
 export { LSH_SaveUserInformation, LSH_GetUserInformation, LSH_UserLogged };
