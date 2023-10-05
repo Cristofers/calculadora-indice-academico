@@ -181,7 +181,7 @@ const Ranking = () => {
                 ) : element.estudiante_indice >= 3.4 ? (
                   <p>Cumlaude</p>
                 ) : (
-                  <p>sin honores</p>
+                  <p>Sin Honor</p>
                 )}
               </div>
             </div>

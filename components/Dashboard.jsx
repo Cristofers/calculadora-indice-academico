@@ -5,14 +5,15 @@ import TinyUserBox from "./TinyUserBox";
 import CloseSesionButton from "./CloseSesion";
 import { useState } from "react";
 import Link from "next/link";
-
+import GeneralStyles from "@/app/generalStyle";
 const DashboardContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   border-radius: 0px 12px 12px 0px;
-  background-color: #53736a;
+  background-color: ${GeneralStyles.primaryColor};
+  font-family: "Open Sans";
   width: 100%;
   height: 100%;
 

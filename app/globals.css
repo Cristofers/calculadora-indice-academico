@@ -1,4 +1,15 @@
+@font-face {
+  font-family: "OpenSans";
+  src: url("/fonts/OpenSans-Italic-VariableFont_wdth,wght.tff") format("tff");
+  /* Agrega otras propiedades de fuente si es necesario */
+}
+
+:root {
+  --primary-color: red; /* Cambiar el color primario */
+}
+
 * {
+  font-family: "OpenSans", sans-serif;
   margin: 0;
   padding: 0;
   overflow: hidden;

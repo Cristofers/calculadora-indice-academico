@@ -101,7 +101,7 @@ const UserConfig = () => {
     <PageContainer>
       <Dashboard />
       <Content>
-        <h2 className="title">Historial académico</h2>
+        <h2 className="title">Historial Académico</h2>
         <div className="historicContainer">
           {TrimestryList.map((element, idx) => (
             <SubjectsTaking

@@ -167,7 +167,7 @@ const StudentSubjectSelection = () => {
     <Container>
       <Dashboard />
       <Content>
-        <h2>Selección de asignaturas</h2>
+        <h2>Selección de Asignaturas</h2>
         <div className="contentSection">
           <div className="contentHeader">
             <p>Listado de asignaturas a seleccionar para el trimestre</p>

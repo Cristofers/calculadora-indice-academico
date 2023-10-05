@@ -83,18 +83,21 @@ const GeneralData = () => {
           <span>ID:</span>
           <p>{User.usuario_id}</p>
         </div>
-        <div className="InformationContainerElement">
-          <span>Área Académica:</span>
-          <p>{User.area_nombre}</p>
-        </div>
+        {/* Estudiante */}
         {User.usuario_rol == 1 ? (
-          <div className="InformationContainerElement">
-            <span>Asignaturas Aprobadas:</span>
-            <p>
-              {User.estudiante_asignaturas_aprobadas} de{" "}
-              {User.carrera_asignatura_total}
-            </p>
-          </div>
+          <>
+            <div className="InformationContainerElement">
+              <span>Carrera:</span>
+              <p>{User.carrera_nombre}</p>
+            </div>
+            <div className="InformationContainerElement">
+              <span>Asignaturas Aprobadas:</span>
+              <p>
+                {User.estudiante_asignaturas_aprobadas} de{" "}
+                {User.carrera_asignatura_total}
+              </p>
+            </div>
+          </>
         ) : (
           <></>
         )}

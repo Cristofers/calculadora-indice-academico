@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-// import Swal from "sweetalert2";
+import Swal from "sweetalert2";
 import Image from "next/image";
 import styled from "styled-components";
 import Link from "next/link";
@@ -80,6 +80,10 @@ const Container = styled.div`
           display: flex;
           align-items: center;
           justify-content: flex-start;
+
+          p {
+            margin-left: 5px;
+          }
         }
 
         a {
@@ -129,15 +133,14 @@ const Login = () => {
     if (usuario[0] != null) {
       LSH_SaveUserInformation(usuario[0]);
       router.push("/student-main");
+    } else {
+      Swal.fire({
+        title: "Error!",
+        text: "¡Usuario no valido!",
+        icon: "error",
+        confirmButtonText: "Cool",
+      });
     }
-    //  else {
-    //   Swal.fire({
-    //     title: "Error!",
-    //     text: "¡Usuario no valido!",
-    //     icon: "error",
-    //     confirmButtonText: "Cool",
-    //   });
-    // }
   };
 
   return (
@@ -156,13 +159,13 @@ const Login = () => {
           <input
             type="text"
             id="email"
-            placeholder="email"
+            placeholder="Email"
             onChange={(e) => handleInputChange(e)}
           />
           <input
             type="password"
             id="pass"
-            placeholder="password"
+            placeholder="Password"
             onChange={(e) => handleInputChange(e)}
           />
           <div className="rememberMeContainer">
@@ -170,7 +173,7 @@ const Login = () => {
               <input type="checkbox" name="check" id="" />
               <p>Recordar usuario </p>
             </div>
-            <Link href="./">¿Enserio perdiste tu contraseña?</Link>
+            <Link href="./">¿Olvidaste tu contraseña?</Link>
           </div>
           <button
             onClick={(e) => {

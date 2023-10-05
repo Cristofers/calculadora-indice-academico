@@ -14,11 +14,12 @@
     "@supabase/auth-ui-shared": "^0.1.7",
     "@supabase/supabase-js": "^2.36.0",
     "chart.js": "^4.4.0",
-    "next": "13.4.19",
+    "next": "^13.5.4",
     "react": "18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "18.2.0",
     "sass": "^1.67.0",
-    "styled-components": "^6.0.8"
+    "styled-components": "^6.0.8",
+    "sweetalert2": "^11.6.13"
   }
 }

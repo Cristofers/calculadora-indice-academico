@@ -52,7 +52,7 @@ const GeneralStudentData = ({ trymestry = -1 }) => {
           datasets: [
             {
               data: [
-                User.estudiante_asignaturas_aprobadas,
+                parseFloat(User.estudiante_asignaturas_aprobadas),
                 User.carrera_asignatura_total -
                   User.estudiante_asignaturas_aprobadas,
               ],
@@ -64,7 +64,7 @@ const GeneralStudentData = ({ trymestry = -1 }) => {
       />
       <CircularProgressBar
         text="Índice General de 4"
-        number={User.estudiante_indice}
+        number={parseFloat(User.estudiante_indice).toFixed(1)}
         Data={{
           datasets: [
             {
