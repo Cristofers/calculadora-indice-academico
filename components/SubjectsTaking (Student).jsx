@@ -13,12 +13,37 @@ const SubjectsTaking = ({ trymestry, title = "Asignaturas Impartidas" }) => {
     async function fetchData() {
       let { data: estudiante_seccion, error } = await supabase
         .from("estudiante_seccion")
-        .select("*,seccion(*,asignatura(*))")
+        .select("*,seccion(*,asignatura(*),seccion_horario!inner(*))")
         .eq("estudiante_id", sessionStorage.getItem("usuario_id"));
 
       let newArray = [];
       estudiante_seccion.map((element) => {
         if (element.trimestre_cursado == trymestry) {
+          let lunes, martes, miercoles, jueves, viernes, sabado;
+          console.log(element.seccion.seccion_horario);
+          
+          switch(element.seccion.seccion_horario.dia.toLowerCase()){
+            case "lunes":
+              lunes = element.seccion.seccion_horario.hora_inicio + " / " + element.seccion.seccion_horario.hora_fin;
+              console.log(lunes);
+              break;
+            case "martes":
+              martes = element.seccion.seccion_horario.hora_inicio + " / " + element.seccion.seccion_horario.hora_fin;
+              break;
+            case "miercoles":
+              miercoles = element.seccion.seccion_horario.hora_inicio + " / " + element.seccion.seccion_horario.hora_fin;
+              break;
+            case "jueves":
+              jueves = element.seccion.seccion_horario.hora_inicio + " / " + element.seccion.seccion_horario.hora_fin;
+              break;
+            case "viernes":
+              viernes = element.seccion.seccion_horario.hora_inicio + " / " + element.seccion.seccion_horario.hora_fin;
+              break;
+            case "sabado":
+              sabado = element.seccion.seccion_horario.hora_inicio + " / " + element.seccion.seccion_horario.hora_fin;
+              break;
+          }
+
           newArray.push([
             element.seccion.asignatura_codigo +
               " - " +
@@ -26,12 +51,12 @@ const SubjectsTaking = ({ trymestry, title = "Asignaturas Impartidas" }) => {
             element.seccion.asignatura.asignatura_creditos,
             element.seccion.asignatura.asignatura_nombre,
             element.aula_codigo,
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
+            lunes,
+            martes,
+            miercoles,
+            jueves,
+            viernes,
+            sabado,
             element.profesor_nom,
           ]);
           setData(newArray);

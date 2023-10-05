@@ -118,9 +118,9 @@ const Ranking = () => {
     async function fetchData() {
       let { data: estudiante, error } = await supabase
         .from("estudiante")
-        .select("*, usuario!inner(usuario_nombre, usuario_apellido)")
+        .select("*, usuario!inner(*)")
         .order("estudiante_indice", { ascending: false });
-
+      console.log("estudiantes: "+estudiante);  
       setData(estudiante);
     }
     fetchData();
@@ -149,9 +149,13 @@ const Ranking = () => {
           {Data.map((element, index) => (
             <div className="rankingElement" key={index}>
               <p>
-                {element.usuario.usuario_nombre +
+                {element.carrera_codigo + 
+                  ", " +
+                  element.usuario.usuario_nombre +
                   " " +
-                  element.usuario.usuario_apellido}
+                  element.usuario.usuario_apellido + 
+                  " " +
+                  element.usuario.usuario_id}
               </p>
               <div className="elementInformation">
                 {index == 0 && (
