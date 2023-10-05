@@ -44,7 +44,7 @@ const SubjectsTaking = ({ trymestry, title = "Asignaturas Impartidas" }) => {
     <GenericTable
       title={title}
       columns={[
-        "Seccion",
+        "Sección",
         "Cr",
         "Asignatura",
         "Aula",

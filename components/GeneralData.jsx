@@ -91,7 +91,7 @@ const GeneralData = () => {
               <p>{User.carrera_nombre}</p>
             </div>
             <div className="InformationContainerElement">
-              <span>Asignaturas Aprobadas:</span>
+              <span>Asignaturas aprobadas:</span>
               <p>
                 {User.estudiante_asignaturas_aprobadas} de{" "}
                 {User.carrera_asignatura_total}
