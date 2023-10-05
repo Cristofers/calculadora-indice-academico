@@ -172,8 +172,10 @@ const Ranking = () => {
                     alt="Picture of the author"
                   />
                 )}
-                <p>{element.estudiante_indice}</p>
-                <p>{element.estudiante_indice_trimestral}</p>
+                <p>{parseFloat(element.estudiante_indice).toFixed(1)}</p>
+                <p>
+                  {parseFloat(element.estudiante_indice_trimestral).toFixed(1)}
+                </p>
                 {element.estudiante_indice >= 3.8 ? (
                   <p>Suma Cumlaude</p>
                 ) : element.estudiante_indice >= 3.6 ? (
