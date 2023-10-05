@@ -63,7 +63,7 @@ const GeneralStudentData = ({ trymestry = -1 }) => {
         }}
       />
       <CircularProgressBar
-        text="Índice General de 4"
+        text="Índice general de 4"
         number={parseFloat(User.estudiante_indice).toFixed(1)}
         Data={{
           datasets: [

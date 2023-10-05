@@ -5,7 +5,7 @@ const SubjectsTaught = () => {
     <GenericTable
       title="Asignaturas Impartidas"
       columns={[
-        "Seccion",
+        "Sección",
         "Cr",
         "Asignatura",
         "Aula",

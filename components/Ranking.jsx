@@ -131,7 +131,7 @@ const Ranking = () => {
       <RankingContainer>
         <div className="upContent">
           <div className="titleSection">
-            <h2>Clasificación del índice</h2>
+            <h2>Clasificacion del índice</h2>
             <p>Del mayor a menor</p>
           </div>
           <input type="search" name="" id="" placeholder="buscar..." />
@@ -183,7 +183,7 @@ const Ranking = () => {
                 ) : element.estudiante_indice >= 3.4 ? (
                   <p>Cumlaude</p>
                 ) : (
-                  <p>Sin Honor</p>
+                  <p>Sin Honores</p>
                 )}
               </div>
             </div>
