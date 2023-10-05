@@ -18,6 +18,7 @@
   color: inherit;
   object-fit: cover;
   border: transparent;
+  box-sizing: border-box;
 }
 
 html {

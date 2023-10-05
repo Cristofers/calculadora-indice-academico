@@ -27,7 +27,6 @@ const DashboardContainer = styled.div`
 
 const DashBoardElement = styled(Link)`
   width: 90%;
-  height: 40px;
   margin: 10px auto;
   display: flex;
   justify-content: left;
@@ -40,7 +39,7 @@ const DashBoardElement = styled(Link)`
   }
 
   & p {
-    margin-left: 25px;
+    margin-left: 15px;
   }
 `;
 

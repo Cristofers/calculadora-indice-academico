@@ -24,8 +24,7 @@ const DatosGeneralesContainer = styled.div`
 
   img {
     border-radius: 10px;
-    /* margin: 10px; */
-    height: 80%;
+    height: 70%;
     width: 30%;
   }
 `;
@@ -43,12 +42,12 @@ const InformationContainer = styled.div`
 
     span {
       font-weight: bold;
-      font-size: 25px;
+      font-size: 20px;
       text-align: left;
     }
 
     p {
-      margin-left: 25px;
+      margin-left: 5px;
       font-size: 20px;
     }
   }

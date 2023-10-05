@@ -68,13 +68,14 @@ const UserConfig = () => {
       ) {
         let { data: estudiante_seccion, error } = await supabase
           .from("estudiante_seccion")
-          .select("trimestre_cursado")
+          .select("*")
           .eq("estudiante_id", sessionStorage.getItem("usuario_id"))
           .eq("trimestre_cursado", index);
 
         // estudiante_seccion.map((trymestry) => {
         if (estudiante_seccion[0]) {
-          newTrymestry.push(estudiante_seccion[0].trimestre_cursado);
+          newTrymestry.push(estudiante_seccion[0]);
+          console.log(estudiante_seccion[0]);
         }
         // });
       }
@@ -105,9 +106,9 @@ const UserConfig = () => {
         <div className="historicContainer">
           {TrimestryList.map((element, idx) => (
             <SubjectsTaking
-              trymestry={element}
+              trymestry={element.trimestre_cursado}
               key={idx}
-              title={GetCiclo(element)}
+              title={GetCiclo(element.ciclo) + " " + element.year}
             />
           ))}
         </div>

@@ -65,7 +65,7 @@ const Content = styled.div`
 
   .actualSubjectsElements {
     width: 100%;
-    height: 80%;
+    height: 70%;
     /* flex-direction: column; */
     color: black;
     background-color: white;

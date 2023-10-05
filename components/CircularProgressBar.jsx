@@ -13,7 +13,7 @@ const CircularProgressBarContainer = styled.div`
   justify-content: center;
   align-content: center;
   background-color: #53736a;
-  width: 200px;
+  width: 225px;
   border-radius: 10px;
   color: white;
 
