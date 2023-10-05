@@ -58,6 +58,7 @@ function StudentMain() {
       <Notices />
       <GeneralStudentData />
       <SubjectsTaking
+        title="Asignaturas Seleccionadas"
         trymestry={sessionStorage.getItem("estudiante_trimestre")}
       />
     </StudentContainer>

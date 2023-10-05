@@ -55,7 +55,7 @@ const SubjectsTaughtInformation = () => {
       <h2>Estudiantes de: Calculo Diferencial</h2>
       <div className="TaughtListInfoContainer">
         <GenericTable
-          // title="Asignaturas Impartidas"
+          title="---"
           columns={["ID", "Nombre", "Calificacion Actual", "Acciones"]}
           data={[["ID", "Nombre", "Calificacion Actual", "Acciones"]]}
         />

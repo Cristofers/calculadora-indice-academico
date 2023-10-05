@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import GeneralStyles from "../generalStyle";
 import Dashboard from "../../components/Dashboard";
 import { LSH_UserLogged } from "../LocalStorageHandler";
 import { createClient } from "@supabase/supabase-js";
@@ -51,13 +52,12 @@ const Content = styled.div`
   }
 
   .contentHeader {
-    background-color: #6a8c69;
+    background-color: ${GeneralStyles.secundaryColor};
     color: white;
     font-size: 20px;
     margin-top: 10px;
     display: flex;
     width: 100%;
-    /* margin-top: 10px; */
     justify-content: space-evenly;
     align-items: center;
     padding: 2.5px 0;
@@ -79,16 +79,18 @@ const Content = styled.div`
     }
   }
 
-  .actualSubjectElement {
+  .actualSubjectElement,
+  .actualSubjectElementTitle {
     width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin-top: 5px;
+    /* margin-top: 5px; */
     min-height: 65px;
 
-    p {
-      width: 20%;
+    p,
+    button {
+      width: 18%;
       text-align: center;
       padding: 5px 0;
       height: 100%;
@@ -100,10 +102,18 @@ const Content = styled.div`
       background-color: #c2c0a6;
     }
   }
+
+  .actualSubjectElementTitle {
+    background-color: ${GeneralStyles.secundaryColor};
+    opacity: 0.75;
+    min-height: 20px;
+    color: white;
+  }
 `;
 
 const StudentSubjectSelection = () => {
   const [ActualTrymestry, setActualTrymestry] = useState([[]]);
+  const [ActualTrymestryDate, setActualTrymestryDate] = useState(0);
   const [AvailableSubjects, setAvailableSubjects] = useState([[]]);
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -137,6 +147,8 @@ const StudentSubjectSelection = () => {
         ]);
       });
       setActualTrymestry(newTrymestry);
+      console.log(estudiante_seccion);
+      setActualTrymestryDate(estudiante_seccion[0].fecha);
       // ();
     }
     fetchData();
@@ -163,6 +175,7 @@ const StudentSubjectSelection = () => {
     }
     fetchData();
   }, []);
+
   return (
     <Container>
       <Dashboard />
@@ -171,7 +184,7 @@ const StudentSubjectSelection = () => {
         <div className="contentSection">
           <div className="contentHeader">
             <p>Listado de asignaturas a seleccionar para el trimestre</p>
-            {/* <p>AGOSTO - OCTUBRE 2021</p> */}
+            <p>{ActualTrymestryDate}</p>
           </div>
         </div>
 
@@ -179,11 +192,18 @@ const StudentSubjectSelection = () => {
           <div className="contentHeader">
             <p>Asignaturas</p>
           </div>
+          <div className="actualSubjectElementTitle">
+            <p>Codigo</p>
+            <p>Nombre</p>
+            <p>Credito</p>
+            <p>Profesor</p>
+            <p>Total: {ActualTrymestry.length}</p>
+          </div>
           <div className="actualSubjectsElements">
             {ActualTrymestry.map((element, idx) => (
               <div className="actualSubjectElement" key={idx}>
                 {element.map((element2, idx2) => (
-                  <p key={idx2}>{element2}</p>
+                  <p key={idx2}>{element2.toString().toUpperCase()}</p>
                 ))}
                 <button>Remover</button>
               </div>
@@ -199,11 +219,18 @@ const StudentSubjectSelection = () => {
               <input type="button" value="Buscar" />
             </form>
           </div>
+          <div className="actualSubjectElementTitle">
+            <p>Codigo</p>
+            <p>Nombre</p>
+            <p>Credito</p>
+            <p>Profesor</p>
+            <p>Total: {AvailableSubjects.length}</p>
+          </div>
           <div className="actualSubjectsElements">
             {AvailableSubjects.map((element, idx) => (
               <div className="actualSubjectElement" key={idx}>
                 {element.map((element2, idx2) => (
-                  <p key={idx2}>{element2}</p>
+                  <p key={idx2}>{element2.toString().toUpperCase()}</p>
                 ))}
                 <button>Agregar</button>
               </div>
