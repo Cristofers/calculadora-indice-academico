@@ -123,16 +123,21 @@ const Login = () => {
 
   const LogHandler = async (e) => {
     e.preventDefault();
-    console.log(inputValues);
     let { data: usuario, error } = await supabase
       .from("usuario")
-      .select("*,estudiante (*, carrera(*, area(*)))")
+      .select("*")
       .eq("usuario_correo", inputValues.email)
       .eq("usuario_password", inputValues.pass);
 
     if (usuario[0] != null) {
-      LSH_SaveUserInformation(usuario[0]);
-      router.push("/student-main");
+      switch (usuario[0].usuario_rol) {
+        case 1:
+          UserStudentSet();
+          break;
+        case 2:
+          UserTeacherSet();
+          break;
+      }
     } else {
       Swal.fire({
         title: "Error!",
@@ -141,6 +146,29 @@ const Login = () => {
         confirmButtonText: "Cool",
       });
     }
+  };
+
+  const UserStudentSet = async () => {
+    let { data: usuario, error } = await supabase
+      .from("usuario")
+      .select("*, estudiante (*, carrera(*, area(*)))")
+      .eq("usuario_correo", inputValues.email)
+      .eq("usuario_password", inputValues.pass);
+
+    LSH_SaveUserInformation(usuario[0]);
+    router.push("/student-main");
+  };
+
+  const UserTeacherSet = async () => {
+    let { data: usuario, error } = await supabase
+      .from("usuario")
+      .select("*, profesor(*,area(*))")
+      .eq("usuario_correo", inputValues.email)
+      .eq("usuario_password", inputValues.pass);
+
+    console.log(usuario[0]);
+    LSH_SaveUserInformation(usuario[0]);
+    router.push("/teacher-main");
   };
 
   return (
@@ -165,7 +193,7 @@ const Login = () => {
           <input
             type="password"
             id="pass"
-            placeholder="Password"
+            placeholder="Contraseña"
             onChange={(e) => handleInputChange(e)}
           />
           <div className="rememberMeContainer">

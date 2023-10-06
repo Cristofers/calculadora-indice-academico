@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import TinyUserBox from "./TinyUserBox";
 import CloseSesionButton from "./CloseSesion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import GeneralStyles from "@/app/generalStyle";
 const DashboardContainer = styled.div`
@@ -44,14 +44,38 @@ const DashBoardElement = styled(Link)`
 `;
 
 const Dashboard = () => {
-  // const [dashElements, setDashElements] = useState(["Inicio", "Clasificacion"]);
   const [dashElements, setDashElements] = useState([
-    { text: "Inicio", icon: "Home", link: "./student-main" },
-    // { text: "Reportes", icon: "Report", link: "./student-reports" },
-    { text: "Historial", icon: "History", link: "./student-academic-history" },
-    { text: "Seleccion", icon: "Book", link: "./student-subject-selection" },
-    { text: "Clasificacion", icon: "Grade", link: "./student-ranking" },
+    { text: "Inicio", icon: "Home", link: "./" },
   ]);
+
+  useEffect(() => {
+    switch (sessionStorage.getItem("usuario_rol").toString()) {
+      case "1":
+        setDashElements([
+          { text: "Inicio", icon: "Home", link: "./student-main" },
+          {
+            text: "Historial",
+            icon: "History",
+            link: "./student-academic-history",
+          },
+          {
+            text: "Seleccion",
+            icon: "Book",
+            link: "./student-subject-selection",
+          },
+          { text: "Clasificacion", icon: "Grade", link: "./student-ranking" },
+        ]);
+        break;
+      case "2":
+        setDashElements([
+          { text: "Inicio", icon: "Home", link: "./teacher-main" },
+          { text: "Clasificacion", icon: "Grade", link: "./student-ranking" },
+        ]);
+        break;
+    }
+    console.log(sessionStorage.getItem("usuario_rol"));
+  }, []);
+
   return (
     <DashboardContainer>
       {dashElements.map((element, index) => (

@@ -48,7 +48,11 @@ const TinyUserBox = () => {
         height={25}
       />
       <div>
-        <p className="UserName">Cristofers Valdez Quintin</p>
+        <p className="UserName">
+          {sessionStorage.getItem("usuario_nombre") +
+            " " +
+            sessionStorage.getItem("usuario_apellido")}
+        </p>
         <p>Ver perfil</p>
       </div>
     </TinyUserBoxContainer>

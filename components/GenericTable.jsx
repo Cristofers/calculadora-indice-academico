@@ -89,7 +89,7 @@ const GenericTable = ({ title = "", columns = [], data = [] }) => {
                 <div key={idx} className="tr body">
                   {dataElements.map((element, idx2) => (
                     <div className="col" key={idx + "_" + idx2}>
-                      {element.toString().toUpperCase()}
+                      {element && element.toString().toUpperCase()}
                     </div>
                   ))}
                 </div>

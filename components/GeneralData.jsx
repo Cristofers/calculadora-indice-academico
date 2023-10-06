@@ -73,7 +73,7 @@ const GeneralData = () => {
   return (
     <DatosGeneralesContainer>
       <InformationContainer>
-        <h2 className="title">Datos generales</h2>
+        <h2 className="title">Datos Generales</h2>
         <div className="InformationContainerElement">
           <span>Nombre:</span>
           <p>{User.usuario_nombre + " " + User.usuario_apellido}</p>
@@ -95,6 +95,17 @@ const GeneralData = () => {
                 {User.estudiante_asignaturas_aprobadas} de{" "}
                 {User.carrera_asignatura_total}
               </p>
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
+        {/* Profesor */}
+        {User.usuario_rol == 2 ? (
+          <>
+            <div className="InformationContainerElement">
+              <span>Area:</span>
+              <p>{User.area_nombre}</p>
             </div>
           </>
         ) : (
