@@ -137,6 +137,9 @@ const Login = () => {
         case 2:
           UserTeacherSet();
           break;
+        case 3:
+          UserAdminSet();
+          break;
       }
     } else {
       Swal.fire({
@@ -166,9 +169,20 @@ const Login = () => {
       .eq("usuario_correo", inputValues.email)
       .eq("usuario_password", inputValues.pass);
 
-    console.log(usuario[0]);
     LSH_SaveUserInformation(usuario[0]);
     router.push("/teacher-main");
+  };
+
+  const UserAdminSet = async () => {
+    let { data: usuario, error } = await supabase
+      .from("usuario")
+      .select("*")
+      .eq("usuario_correo", inputValues.email)
+      .eq("usuario_password", inputValues.pass);
+
+    console.log(usuario[0]);
+    LSH_SaveUserInformation(usuario[0]);
+    router.push("/admin-main");
   };
 
   return (

@@ -72,6 +72,12 @@ const Dashboard = () => {
           { text: "Clasificacion", icon: "Grade", link: "./student-ranking" },
         ]);
         break;
+      case "3":
+        setDashElements([
+          { text: "Inicio", icon: "Home", link: "./admin-main" },
+          { text: "Clasificacion", icon: "Grade", link: "./student-ranking" },
+        ]);
+        break;
     }
     console.log(sessionStorage.getItem("usuario_rol"));
   }, []);
