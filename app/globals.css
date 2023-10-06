@@ -19,6 +19,7 @@
   object-fit: cover;
   border: transparent;
   box-sizing: border-box;
+  transition: 0.25s;
 }
 
 html {

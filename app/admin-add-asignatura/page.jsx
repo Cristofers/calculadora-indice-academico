@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Dashboard from "../../components/Dashboard";
 import Link from "next/link";
@@ -63,6 +63,8 @@ const Formulary = styled.form`
   width: 55%;
   input[type="text"],
   input[type="password"],
+  input[type="number"],
+  select,
   textarea {
     background-color: #eeeeee;
     padding: 10px;
@@ -97,12 +99,22 @@ const Formulary = styled.form`
   }
 `;
 
-const AddArea = () => {
+const AddAsignatura = () => {
   const [inputValues, setInputValues] = useState({});
+  const [AreaIDValue, setAreaIDValue] = useState([]);
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   const supabase = createClient(supabaseUrl, supabaseKey);
   const router = useRouter();
+
+  useEffect(() => {
+    async function fetchData() {
+      let { data: area, error } = await supabase.from("area").select("*");
+      setAreaIDValue(area);
+      console.log(area);
+    }
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (sessionStorage.getItem("usuario_rol") != 3) {
@@ -121,8 +133,15 @@ const AddArea = () => {
     e.preventDefault();
     if (!ValidData) return;
     const { data, error } = await supabase
-      .from("area")
-      .insert([{ area_nombre: inputValues.area_nombre }])
+      .from("asignatura")
+      .insert([
+        {
+          area_id: inputValues.area_id,
+          asignatura_nombre: inputValues.asignatura_nombre,
+          asignatura_codigo: inputValues.asignatura_codigo,
+          asignatura_creditos: inputValues.asignatura_creditos,
+        },
+      ])
       .select();
 
     if (error != null) {
@@ -152,34 +171,6 @@ const AddArea = () => {
   };
 
   const ValidData = () => {
-    if (inputValues.area_nombre == null) {
-      Swal.fire({
-        title: "Error!",
-        text: "Unos de los campos suministrados está carente de contenido.",
-        icon: "error",
-        confirmButtonText: "Cool",
-      });
-      return false;
-    }
-    if (inputValues.area_nombre == "") {
-      Swal.fire({
-        title: "Error!",
-        text: "Unos de los campos suministrados está carente de contenido.",
-        icon: "error",
-        confirmButtonText: "Cool",
-      });
-      return false;
-    }
-    if (inputValues.area_nombre == " ") {
-      Swal.fire({
-        title: "Error!",
-        text: "Unos de los campos suministrados está carente de contenido.",
-        icon: "error",
-        confirmButtonText: "Cool",
-      });
-      return false;
-    }
-
     return true;
   };
 
@@ -187,13 +178,41 @@ const AddArea = () => {
     <Container>
       <Dashboard />
       <Content>
-        <h2>Area Academica</h2>
+        <h2>Asignatura</h2>
         <Formulary>
+          <div htmlFor="area_id">
+            <label htmlFor="area_id">Area ID</label>
+            <select id="area_id" onChange={(e) => handleInputChange(e)}>
+              <option value={0}>Seleccionar...</option>
+              {AreaIDValue.map((element) => (
+                <option key={element.id} value={element.id}>
+                  {element.area_nombre}
+                </option>
+              ))}
+            </select>
+          </div>
+
           <div>
-            <label htmlFor="area_nombre">Nombre del Area</label>
+            <label htmlFor="asignatura_codigo">Codigo</label>
             <input
               type="text"
-              id="area_nombre"
+              id="asignatura_codigo"
+              onChange={(e) => handleInputChange(e)}
+            />
+          </div>
+          <div>
+            <label htmlFor="asignatura_nombre">Nombre</label>
+            <input
+              type="text"
+              id="asignatura_nombre"
+              onChange={(e) => handleInputChange(e)}
+            />
+          </div>
+          <div>
+            <label htmlFor="asignatura_creditos">Cantidad de creditos</label>
+            <input
+              type="number"
+              id="asignatura_creditos"
               onChange={(e) => handleInputChange(e)}
             />
           </div>
@@ -210,4 +229,4 @@ const AddArea = () => {
   );
 };
 
-export default AddArea;
+export default AddAsignatura;

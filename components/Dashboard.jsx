@@ -6,6 +6,7 @@ import CloseSesionButton from "./CloseSesion";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import GeneralStyles from "@/app/generalStyle";
+
 const DashboardContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -36,10 +37,15 @@ const DashBoardElement = styled(Link)`
   &:hover {
     background-color: #c2c0a6;
     color: #fff;
+
+    img {
+      filter: invert(1);
+    }
   }
 
   & p {
     margin-left: 15px;
+    max-width: 50%;
   }
 `;
 
@@ -75,11 +81,25 @@ const Dashboard = () => {
       case "3":
         setDashElements([
           { text: "Inicio", icon: "Home", link: "./admin-main" },
+          {
+            text: "Administrar Area Academica",
+            icon: "Report",
+            link: "./admin-add-area",
+          },
+          {
+            text: "Administrar Asignatura",
+            icon: "Report",
+            link: "./admin-add-asignatura",
+          },
+          {
+            text: "Administrar Carrera",
+            icon: "Report",
+            link: "./admin-add-carrera",
+          },
           { text: "Clasificacion", icon: "Grade", link: "./student-ranking" },
         ]);
         break;
     }
-    console.log(sessionStorage.getItem("usuario_rol"));
   }, []);
 
   return (
