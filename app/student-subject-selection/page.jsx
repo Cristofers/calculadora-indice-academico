@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import GeneralStyles from "../generalStyle";
 import Dashboard from "../../components/Dashboard";
-import { LSH_UserLogged } from "../LocalStorageHandler";
 import { createClient } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 
@@ -120,10 +119,11 @@ const StudentSubjectSelection = () => {
   const supabase = createClient(supabaseUrl, supabaseKey);
 
   const router = useRouter();
-  if (!LSH_UserLogged()) {
-    router.push("/user-login");
-    return <></>;
-  }
+  useEffect(() => {
+    if (sessionStorage.getItem("usuario_rol") != 1) {
+      router.push("./");
+    }
+  }, []);
 
   useEffect(() => {
     async function fetchData() {

@@ -1,10 +1,9 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Dashboard from "../../components/Dashboard";
 import GeneralData from "@/components/GeneralData";
 import styled from "styled-components";
 import Notices from "../../components/Notices";
-import { LSH_UserLogged } from "../LocalStorageHandler";
 import { useRouter } from "next/navigation";
 
 const Container = styled.div`
@@ -34,7 +33,14 @@ const Container = styled.div`
   }
 `;
 
-const page = () => {
+const AdminMain = () => {
+  const router = useRouter();
+  useEffect(() => {
+    if (sessionStorage.getItem("usuario_rol") != 3) {
+      router.push("./");
+    }
+  }, []);
+
   return (
     <Container>
       <Dashboard />
@@ -44,4 +50,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default AdminMain;

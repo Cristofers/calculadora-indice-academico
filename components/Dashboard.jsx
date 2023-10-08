@@ -6,6 +6,7 @@ import CloseSesionButton from "./CloseSesion";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import GeneralStyles from "@/app/generalStyle";
+import { useRouter } from "next/navigation";
 
 const DashboardContainer = styled.div`
   display: flex;
@@ -50,12 +51,17 @@ const DashBoardElement = styled(Link)`
 `;
 
 const Dashboard = () => {
+  const router = useRouter();
   const [dashElements, setDashElements] = useState([
     { text: "Inicio", icon: "Home", link: "./" },
   ]);
 
   useEffect(() => {
-    switch (sessionStorage.getItem("usuario_rol").toString()) {
+    if (sessionStorage.getItem("usuario_rol") === null) {
+      router.push("./");
+      return;
+    }
+    switch (sessionStorage.getItem("usuario_rol").toString() || "") {
       case "1":
         setDashElements([
           { text: "Inicio", icon: "Home", link: "./student-main" },

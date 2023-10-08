@@ -1,11 +1,10 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Dashboard from "../../components/Dashboard";
 import GeneralStudentData from "../../components/GeneralData";
 import styled from "styled-components";
 import Notices from "../../components/Notices";
 import SubjectsTaughtInformation from "../../components/SubjectsTaughtInformation";
-import { LSH_UserLogged } from "../LocalStorageHandler";
 import { useRouter } from "next/navigation";
 
 const TeacherContainer = styled.div`
@@ -45,10 +44,12 @@ const TeacherContainer = styled.div`
 
 function TeacherSubjetInformation() {
   const router = useRouter();
-  if (!LSH_UserLogged()) {
-    router.push("/user-login");
-    return <></>;
-  }
+  useEffect(() => {
+    if (sessionStorage.getItem("usuario_rol") != 2) {
+      router.push("./");
+    }
+  }, []);
+
   return (
     <TeacherContainer>
       <Dashboard />

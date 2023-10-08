@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import Image from "next/image";
 import styled from "styled-components";
@@ -112,9 +112,21 @@ const Login = () => {
   const supabase = createClient(supabaseUrl, supabaseKey);
   const router = useRouter();
 
-  if (LSH_UserLogged()) {
-    router.push("/student-main");
-  }
+  useEffect(() => {
+    if (sessionStorage.getItem("usuario_rol") === null) return;
+
+    switch (sessionStorage.getItem("usuario_rol").toString() || "") {
+      case "1":
+      // router.push("./student-main");
+      case "2":
+      // router.push("./teacher-main");
+      case "3":
+        // router.push("./admin-main");
+        break;
+    }
+    return;
+  }, []);
+
   const handleInputChange = (event) => {
     const newInputValues = { ...inputValues };
     newInputValues[event.target.id] = event.target.value;

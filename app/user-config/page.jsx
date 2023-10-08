@@ -1,8 +1,10 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Dashboard from "../../components/Dashboard";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+
 const Container = styled.div`
   height: 100%;
   width: 100%;
@@ -122,6 +124,13 @@ const Content = styled.div`
 `;
 
 const UserConfig = () => {
+  const router = useRouter();
+  useEffect(() => {
+    if (sessionStorage.getItem("usuario_rol") == null) {
+      router.push("./");
+    }
+  }, []);
+
   return (
     <Container>
       <Dashboard />

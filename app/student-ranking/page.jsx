@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import Dashboard from "../../components/Dashboard";
 import styled from "styled-components";
 import Ranking from "../../components/Ranking";
-import { LSH_UserLogged } from "../LocalStorageHandler";
 import { useRouter } from "next/navigation";
 
 const StudentRanking = styled.div`
@@ -31,10 +30,11 @@ const StudentRanking = styled.div`
 
 const page = () => {
   const router = useRouter();
-  if (!LSH_UserLogged()) {
-    router.push("/user-login");
-    return <></>;
-  }
+  useEffect(() => {
+    if (sessionStorage.getItem("usuario_rol") == null) {
+      router.push("./");
+    }
+  }, []);
   return (
     <StudentRanking>
       <Dashboard />

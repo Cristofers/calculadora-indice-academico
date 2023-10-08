@@ -5,7 +5,6 @@ import Dashboard from "../../components/Dashboard";
 import GeneralStudentData from "../../components/GeneralStudentData";
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
-import { LSH_UserLogged } from "../LocalStorageHandler";
 import { useRouter } from "next/navigation";
 
 const StudentReportContainer = styled.div`
@@ -56,10 +55,11 @@ const StudentReportContainer = styled.div`
 
 const StudentReport = () => {
   const router = useRouter();
-  if (!LSH_UserLogged()) {
-    router.push("/user-login");
-    return <></>;
-  }
+  useEffect(() => {
+    if (sessionStorage.getItem("usuario_rol") != 1) {
+      router.push("./");
+    }
+  }, []);
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;

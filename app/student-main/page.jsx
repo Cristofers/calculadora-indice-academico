@@ -6,7 +6,6 @@ import GeneralData from "../../components/GeneralData";
 import Notices from "../../components/Notices";
 import GeneralStudentData from "../../components/GeneralStudentData";
 import SubjectsTaking from "../../components/SubjectsTaking (Student)";
-import { LSH_UserLogged } from "../LocalStorageHandler";
 import { useRouter } from "next/navigation";
 
 const StudentContainer = styled.div`
@@ -46,10 +45,11 @@ const StudentContainer = styled.div`
 
 function StudentMain() {
   const router = useRouter();
-  if (!LSH_UserLogged()) {
-    router.push("/user-login");
-    return <></>;
-  }
+  useEffect(() => {
+    if (sessionStorage.getItem("usuario_rol") != 1) {
+      router.push("./");
+    }
+  }, []);
 
   return (
     <StudentContainer>

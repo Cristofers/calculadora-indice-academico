@@ -5,7 +5,6 @@ import Dashboard from "../../components/Dashboard";
 import { createClient } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
 import SubjectsTaking from "@/components/SubjectsTaking (Student)";
-import { LSH_UserLogged } from "../LocalStorageHandler";
 import { useRouter } from "next/navigation";
 
 const PageContainer = styled.div`
@@ -54,9 +53,11 @@ const UserConfig = () => {
   const supabase = createClient(supabaseUrl, supabaseKey);
 
   const router = useRouter();
-  if (!LSH_UserLogged()) {
-    router.push("/user-login");
-  }
+  useEffect(() => {
+    if (sessionStorage.getItem("usuario_rol") != 1) {
+      router.push("./");
+    }
+  }, []);
 
   useEffect(() => {
     async function fetchData() {
