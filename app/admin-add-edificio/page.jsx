@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Dashboard from "../../components/Dashboard";
 import Link from "next/link";
@@ -63,8 +63,6 @@ const Formulary = styled.form`
   width: 55%;
   input[type="text"],
   input[type="password"],
-  input[type="number"],
-  select,
   textarea {
     background-color: #eeeeee;
     padding: 10px;
@@ -99,25 +97,12 @@ const Formulary = styled.form`
   }
 `;
 
-const AddAsignatura = () => {
+const AddEdificio = () => {
   const [inputValues, setInputValues] = useState({});
-  const [AreaIDValue, setAreaIDValue] = useState([]);
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   const supabase = createClient(supabaseUrl, supabaseKey);
   const router = useRouter();
-
-  useEffect(() => {
-    async function fetchData() {
-      let { data: area, error } = await supabase
-        .from("area")
-        .select("*")
-        .order("area_nombre", { ascending: true });
-      setAreaIDValue(area);
-      console.log(area);
-    }
-    fetchData();
-  }, []);
 
   useEffect(() => {
     if (sessionStorage.getItem("usuario_rol") != 3) {
@@ -136,15 +121,8 @@ const AddAsignatura = () => {
     e.preventDefault();
     if (!ValidData()) return;
     const { data, error } = await supabase
-      .from("asignatura")
-      .insert([
-        {
-          area_id: inputValues.area_id,
-          asignatura_nombre: inputValues.asignatura_nombre,
-          asignatura_codigo: inputValues.asignatura_codigo,
-          asignatura_creditos: inputValues.asignatura_creditos,
-        },
-      ])
+      .from("edificio")
+      .insert([{ edificio_nombre: inputValues.edificio_nombre }])
       .select();
 
     if (error != null) {
@@ -181,41 +159,13 @@ const AddAsignatura = () => {
     <Container>
       <Dashboard />
       <Content>
-        <h2>Asignatura</h2>
+        <h2>Edificio</h2>
         <Formulary>
-          <div htmlFor="area_id">
-            <label htmlFor="area_id">Area ID</label>
-            <select id="area_id" onChange={(e) => handleInputChange(e)}>
-              <option value={0}>Seleccionar...</option>
-              {AreaIDValue.map((element) => (
-                <option key={element.id} value={element.id}>
-                  {element.area_nombre}
-                </option>
-              ))}
-            </select>
-          </div>
-
           <div>
-            <label htmlFor="asignatura_codigo">Codigo</label>
+            <label htmlFor="edificio_nombre">Nombre del Edificio</label>
             <input
               type="text"
-              id="asignatura_codigo"
-              onChange={(e) => handleInputChange(e)}
-            />
-          </div>
-          <div>
-            <label htmlFor="asignatura_nombre">Nombre</label>
-            <input
-              type="text"
-              id="asignatura_nombre"
-              onChange={(e) => handleInputChange(e)}
-            />
-          </div>
-          <div>
-            <label htmlFor="asignatura_creditos">Cantidad de creditos</label>
-            <input
-              type="number"
-              id="asignatura_creditos"
+              id="edificio_nombre"
               onChange={(e) => handleInputChange(e)}
             />
           </div>
@@ -232,4 +182,4 @@ const AddAsignatura = () => {
   );
 };
 
-export default AddAsignatura;
+export default AddEdificio;

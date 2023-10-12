@@ -119,7 +119,7 @@ const AddArea = () => {
 
   const SaveHandler = async (e) => {
     e.preventDefault();
-    if (!ValidData) return;
+    if (!ValidData()) return;
     const { data, error } = await supabase
       .from("area")
       .insert([{ area_nombre: inputValues.area_nombre }])

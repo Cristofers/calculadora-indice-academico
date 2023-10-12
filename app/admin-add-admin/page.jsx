@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Dashboard from "../../components/Dashboard";
 import Link from "next/link";
@@ -62,8 +62,8 @@ const Formulary = styled.form`
 
   width: 55%;
   input[type="text"],
-  input[type="password"],
   input[type="number"],
+  input[type="password"],
   select,
   textarea {
     background-color: #eeeeee;
@@ -99,25 +99,12 @@ const Formulary = styled.form`
   }
 `;
 
-const AddAsignatura = () => {
+const AddProfesor = () => {
   const [inputValues, setInputValues] = useState({});
-  const [AreaIDValue, setAreaIDValue] = useState([]);
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   const supabase = createClient(supabaseUrl, supabaseKey);
   const router = useRouter();
-
-  useEffect(() => {
-    async function fetchData() {
-      let { data: area, error } = await supabase
-        .from("area")
-        .select("*")
-        .order("area_nombre", { ascending: true });
-      setAreaIDValue(area);
-      console.log(area);
-    }
-    fetchData();
-  }, []);
 
   useEffect(() => {
     if (sessionStorage.getItem("usuario_rol") != 3) {
@@ -128,7 +115,6 @@ const AddAsignatura = () => {
   const handleInputChange = (event) => {
     const newInputValues = { ...inputValues };
     newInputValues[event.target.id] = event.target.value;
-    console.log(newInputValues);
     setInputValues(newInputValues);
   };
 
@@ -136,13 +122,15 @@ const AddAsignatura = () => {
     e.preventDefault();
     if (!ValidData()) return;
     const { data, error } = await supabase
-      .from("asignatura")
+      .from("usuario")
       .insert([
         {
-          area_id: inputValues.area_id,
-          asignatura_nombre: inputValues.asignatura_nombre,
-          asignatura_codigo: inputValues.asignatura_codigo,
-          asignatura_creditos: inputValues.asignatura_creditos,
+          usuario_id: inputValues.usuario_id,
+          usuario_nombre: inputValues.usuario_nombre,
+          usuario_apellido: inputValues.usuario_apellido,
+          usuario_correo: inputValues.usuario_correo,
+          usuario_password: inputValues.usuario_password,
+          usuario_rol: 3,
         },
       ])
       .select();
@@ -174,6 +162,15 @@ const AddAsignatura = () => {
   };
 
   const ValidData = () => {
+    if (inputValues.usuario_id.toString().length != 7) {
+      Swal.fire({
+        title: "Error!",
+        text: "La cantidad de dígitos requeridos para el ID de profesor no es la correcta.",
+        icon: "error",
+        confirmButtonText: "Cool",
+      });
+      return false;
+    }
     return true;
   };
 
@@ -181,41 +178,45 @@ const AddAsignatura = () => {
     <Container>
       <Dashboard />
       <Content>
-        <h2>Asignatura</h2>
+        <h2>Administradores</h2>
         <Formulary>
-          <div htmlFor="area_id">
-            <label htmlFor="area_id">Area ID</label>
-            <select id="area_id" onChange={(e) => handleInputChange(e)}>
-              <option value={0}>Seleccionar...</option>
-              {AreaIDValue.map((element) => (
-                <option key={element.id} value={element.id}>
-                  {element.area_nombre}
-                </option>
-              ))}
-            </select>
-          </div>
-
           <div>
-            <label htmlFor="asignatura_codigo">Codigo</label>
-            <input
-              type="text"
-              id="asignatura_codigo"
-              onChange={(e) => handleInputChange(e)}
-            />
-          </div>
-          <div>
-            <label htmlFor="asignatura_nombre">Nombre</label>
-            <input
-              type="text"
-              id="asignatura_nombre"
-              onChange={(e) => handleInputChange(e)}
-            />
-          </div>
-          <div>
-            <label htmlFor="asignatura_creditos">Cantidad de creditos</label>
+            <label htmlFor="usuario_id">ID de Administrador</label>
             <input
               type="number"
-              id="asignatura_creditos"
+              id="usuario_id"
+              onChange={(e) => handleInputChange(e)}
+            />
+          </div>
+          <div>
+            <label htmlFor="usuario_nombre">Nombre del Administrador</label>
+            <input
+              type="text"
+              id="usuario_nombre"
+              onChange={(e) => handleInputChange(e)}
+            />
+          </div>
+          <div>
+            <label htmlFor="usuario_apellido">Apellido del Administrador</label>
+            <input
+              type="text"
+              id="usuario_apellido"
+              onChange={(e) => handleInputChange(e)}
+            />
+          </div>
+          <div>
+            <label htmlFor="usuario_correo">Correo</label>
+            <input
+              type="text"
+              id="usuario_correo"
+              onChange={(e) => handleInputChange(e)}
+            />
+          </div>
+          <div>
+            <label htmlFor="usuario_password">Contraseña</label>
+            <input
+              type="password"
+              id="usuario_password"
               onChange={(e) => handleInputChange(e)}
             />
           </div>
@@ -232,4 +233,4 @@ const AddAsignatura = () => {
   );
 };
 
-export default AddAsignatura;
+export default AddProfesor;

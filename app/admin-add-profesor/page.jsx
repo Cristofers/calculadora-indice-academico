@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Dashboard from "../../components/Dashboard";
 import Link from "next/link";
@@ -62,8 +62,8 @@ const Formulary = styled.form`
 
   width: 55%;
   input[type="text"],
-  input[type="password"],
   input[type="number"],
+  input[type="password"],
   select,
   textarea {
     background-color: #eeeeee;
@@ -99,9 +99,9 @@ const Formulary = styled.form`
   }
 `;
 
-const AddAsignatura = () => {
+const AddProfesor = () => {
   const [inputValues, setInputValues] = useState({});
-  const [AreaIDValue, setAreaIDValue] = useState([]);
+  const [Areas, setAreas] = useState([{}]);
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   const supabase = createClient(supabaseUrl, supabaseKey);
@@ -113,8 +113,7 @@ const AddAsignatura = () => {
         .from("area")
         .select("*")
         .order("area_nombre", { ascending: true });
-      setAreaIDValue(area);
-      console.log(area);
+      setAreas(area);
     }
     fetchData();
   }, []);
@@ -128,7 +127,6 @@ const AddAsignatura = () => {
   const handleInputChange = (event) => {
     const newInputValues = { ...inputValues };
     newInputValues[event.target.id] = event.target.value;
-    console.log(newInputValues);
     setInputValues(newInputValues);
   };
 
@@ -136,13 +134,15 @@ const AddAsignatura = () => {
     e.preventDefault();
     if (!ValidData()) return;
     const { data, error } = await supabase
-      .from("asignatura")
+      .from("usuario")
       .insert([
         {
-          area_id: inputValues.area_id,
-          asignatura_nombre: inputValues.asignatura_nombre,
-          asignatura_codigo: inputValues.asignatura_codigo,
-          asignatura_creditos: inputValues.asignatura_creditos,
+          usuario_id: inputValues.usuario_id,
+          usuario_nombre: inputValues.usuario_nombre,
+          usuario_apellido: inputValues.usuario_apellido,
+          usuario_correo: inputValues.usuario_correo,
+          usuario_password: inputValues.usuario_password,
+          usuario_rol: 2,
         },
       ])
       .select();
@@ -155,25 +155,64 @@ const AddAsignatura = () => {
         confirmButtonText: "Cool",
       });
     } else {
-      Swal.fire({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 10000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
-        titleText: "Dato Insertado",
-        text: "El dato se ha insertado correctamente.",
-        icon: "success",
-        confirmButtonText: "Aceptar",
-      });
+      const { data, error } = await supabase
+        .from("profesor")
+        .insert([
+          {
+            profesor_id: inputValues.usuario_id,
+            area_id: inputValues.area_id,
+            profesor_trimestre: 1,
+          },
+        ])
+        .select();
+
+      if (error != null) {
+        Swal.fire({
+          title: "Error!",
+          text: JSON.stringify(error),
+          icon: "error",
+          confirmButtonText: "Cool",
+        });
+      } else {
+        Swal.fire({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 10000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+          titleText: "Dato Insertado",
+          text: "El dato se ha insertado correctamente.",
+          icon: "success",
+          confirmButtonText: "Aceptar",
+        });
+      }
     }
   };
 
   const ValidData = () => {
+    if (inputValues.usuario_id.toString().length != 7) {
+      Swal.fire({
+        title: "Error!",
+        text: "La cantidad de dígitos requeridos para el ID de profesor no es la correcta.",
+        icon: "error",
+        confirmButtonText: "Cool",
+      });
+      return false;
+    }
+
+    if (inputValues.area_id == "" || inputValues.area_id == null) {
+      Swal.fire({
+        title: "Error!",
+        text: "Por favor selecciona un area para el profesor.",
+        icon: "error",
+        confirmButtonText: "Cool",
+      });
+      return false;
+    }
     return true;
   };
 
@@ -181,43 +220,60 @@ const AddAsignatura = () => {
     <Container>
       <Dashboard />
       <Content>
-        <h2>Asignatura</h2>
+        <h2>Profesores</h2>
         <Formulary>
+          <div>
+            <label htmlFor="usuario_id">ID del Profesor</label>
+            <input
+              type="number"
+              id="usuario_id"
+              onChange={(e) => handleInputChange(e)}
+            />
+          </div>
+          <div>
+            <label htmlFor="usuario_nombre">Nombre del Profesor</label>
+            <input
+              type="text"
+              id="usuario_nombre"
+              onChange={(e) => handleInputChange(e)}
+            />
+          </div>
+          <div>
+            <label htmlFor="usuario_apellido">Apellido del Profesor</label>
+            <input
+              type="text"
+              id="usuario_apellido"
+              onChange={(e) => handleInputChange(e)}
+            />
+          </div>
+          <div>
+            <label htmlFor="usuario_correo">Correo</label>
+            <input
+              type="text"
+              id="usuario_correo"
+              onChange={(e) => handleInputChange(e)}
+            />
+          </div>
+          <div>
+            <label htmlFor="usuario_password">Contraseña</label>
+            <input
+              type="password"
+              id="usuario_password"
+              onChange={(e) => handleInputChange(e)}
+            />
+          </div>
           <div htmlFor="area_id">
-            <label htmlFor="area_id">Area ID</label>
+            <label htmlFor="area_id">Area</label>
             <select id="area_id" onChange={(e) => handleInputChange(e)}>
-              <option value={0}>Seleccionar...</option>
-              {AreaIDValue.map((element) => (
-                <option key={element.id} value={element.id}>
+              <option value={0} key={0}>
+                Seleccionar...
+              </option>
+              {Areas.map((element, idx) => (
+                <option key={idx} value={element.id}>
                   {element.area_nombre}
                 </option>
               ))}
             </select>
-          </div>
-
-          <div>
-            <label htmlFor="asignatura_codigo">Codigo</label>
-            <input
-              type="text"
-              id="asignatura_codigo"
-              onChange={(e) => handleInputChange(e)}
-            />
-          </div>
-          <div>
-            <label htmlFor="asignatura_nombre">Nombre</label>
-            <input
-              type="text"
-              id="asignatura_nombre"
-              onChange={(e) => handleInputChange(e)}
-            />
-          </div>
-          <div>
-            <label htmlFor="asignatura_creditos">Cantidad de creditos</label>
-            <input
-              type="number"
-              id="asignatura_creditos"
-              onChange={(e) => handleInputChange(e)}
-            />
           </div>
 
           <div className="buttonContainer">
@@ -232,4 +288,4 @@ const AddAsignatura = () => {
   );
 };
 
-export default AddAsignatura;
+export default AddProfesor;

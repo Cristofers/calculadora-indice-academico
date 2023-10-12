@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Dashboard from "../../components/Dashboard";
 import Link from "next/link";
@@ -62,8 +62,8 @@ const Formulary = styled.form`
 
   width: 55%;
   input[type="text"],
-  input[type="password"],
   input[type="number"],
+  input[type="password"],
   select,
   textarea {
     background-color: #eeeeee;
@@ -99,9 +99,9 @@ const Formulary = styled.form`
   }
 `;
 
-const AddCarrera = () => {
+const AddEstudiante = () => {
   const [inputValues, setInputValues] = useState({});
-  const [AreaIDValue, setAreaIDValue] = useState([]);
+  const [Carreras, setCarreras] = useState([{}]);
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   const supabase = createClient(supabaseUrl, supabaseKey);
@@ -109,12 +109,11 @@ const AddCarrera = () => {
 
   useEffect(() => {
     async function fetchData() {
-      let { data: area, error } = await supabase
-        .from("area")
+      let { data: carrera, error } = await supabase
+        .from("carrera")
         .select("*")
-        .order("area_nombre", { ascending: true });
-      setAreaIDValue(area);
-      console.log(area);
+        .order("carrera_nombre", { ascending: true });
+      setCarreras(carrera);
     }
     fetchData();
   }, []);
@@ -125,26 +124,25 @@ const AddCarrera = () => {
     }
   }, []);
 
-  const handleInputChange = (event, value = null) => {
+  const handleInputChange = (event) => {
     const newInputValues = { ...inputValues };
-    newInputValues[event.target.id] = value || event.target.value;
+    newInputValues[event.target.id] = event.target.value;
     setInputValues(newInputValues);
   };
 
   const SaveHandler = async (e) => {
     e.preventDefault();
     if (!ValidData()) return;
-
     const { data, error } = await supabase
-      .from("carrera")
+      .from("usuario")
       .insert([
         {
-          carrera_abreviatura: inputValues.carrera_abreviatura,
-          area_id: inputValues.area_id,
-          carrera_nombre: inputValues.carrera_nombre,
-          carrera_creditos: inputValues.carrera_creditos,
-          carrera_trimestres: inputValues.carrera_trimestres,
-          carrera_asignatura_total: inputValues.carrera_asignatura_total,
+          usuario_id: inputValues.usuario_id,
+          usuario_nombre: inputValues.usuario_nombre,
+          usuario_apellido: inputValues.usuario_apellido,
+          usuario_correo: inputValues.usuario_correo,
+          usuario_password: inputValues.usuario_password,
+          usuario_rol: 1,
         },
       ])
       .select();
@@ -157,29 +155,62 @@ const AddCarrera = () => {
         confirmButtonText: "Cool",
       });
     } else {
-      Swal.fire({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 10000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
-        titleText: "Dato Insertado",
-        text: "El dato se ha insertado correctamente.",
-        icon: "success",
-        confirmButtonText: "Aceptar",
-      });
+      const { data, error } = await supabase
+        .from("estudiante")
+        .insert([
+          {
+            estudiante_id: inputValues.usuario_id,
+            carrera_codigo: inputValues.carrera_codigo,
+            estudiante_pensum: 2020,
+          },
+        ])
+        .select();
+
+      if (error != null) {
+        Swal.fire({
+          title: "Error!",
+          text: JSON.stringify(error),
+          icon: "error",
+          confirmButtonText: "Cool",
+        });
+      } else {
+        Swal.fire({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 10000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+          titleText: "Dato Insertado",
+          text: "El dato se ha insertado correctamente.",
+          icon: "success",
+          confirmButtonText: "Aceptar",
+        });
+      }
     }
   };
 
   const ValidData = () => {
-    if (inputValues.area_id <= 0) {
+    if (inputValues.usuario_id.toString().length != 7) {
       Swal.fire({
         title: "Error!",
-        text: 'El campo "Area ID" no tiene ninguna área seleccionada.',
+        text: "La cantidad de dígitos requeridos para el ID de estudiantes no es la correcta.",
+        icon: "error",
+        confirmButtonText: "Cool",
+      });
+      return false;
+    }
+
+    if (
+      inputValues.carrera_codigo == "" ||
+      inputValues.carrera_codigo == null
+    ) {
+      Swal.fire({
+        title: "Error!",
+        text: "Por favor selecciona una carrera para el estudiante.",
         icon: "error",
         confirmButtonText: "Cool",
       });
@@ -192,62 +223,60 @@ const AddCarrera = () => {
     <Container>
       <Dashboard />
       <Content>
-        <h2>Carrera</h2>
+        <h2>Estudiantes</h2>
         <Formulary>
           <div>
-            <label htmlFor="carrera_abreviatura">Abreviatura</label>
+            <label htmlFor="usuario_id">ID del Estudiante</label>
             <input
-              type="text"
-              id="carrera_abreviatura"
+              type="number"
+              id="usuario_id"
               onChange={(e) => handleInputChange(e)}
             />
           </div>
-
-          <div htmlFor="area_id">
-            <label htmlFor="area_id">Area ID</label>
-            <select id="area_id" onChange={(e) => handleInputChange(e)}>
-              <option value={0}>Seleccionar...</option>
-              {AreaIDValue.map((element) => (
-                <option key={element.id} value={element.id}>
-                  {element.area_nombre}
+          <div>
+            <label htmlFor="usuario_nombre">Nombre del Estudiante</label>
+            <input
+              type="text"
+              id="usuario_nombre"
+              onChange={(e) => handleInputChange(e)}
+            />
+          </div>
+          <div>
+            <label htmlFor="usuario_apellido">Apellido del Estudiante</label>
+            <input
+              type="text"
+              id="usuario_apellido"
+              onChange={(e) => handleInputChange(e)}
+            />
+          </div>
+          <div>
+            <label htmlFor="usuario_correo">Correo</label>
+            <input
+              type="text"
+              id="usuario_correo"
+              onChange={(e) => handleInputChange(e)}
+            />
+          </div>
+          <div>
+            <label htmlFor="usuario_password">Contraseña</label>
+            <input
+              type="password"
+              id="usuario_password"
+              onChange={(e) => handleInputChange(e)}
+            />
+          </div>
+          <div htmlFor="carrera_codigo">
+            <label htmlFor="carrera_codigo">Carrera</label>
+            <select id="carrera_codigo" onChange={(e) => handleInputChange(e)}>
+              <option value={0} key={0}>
+                Seleccionar...
+              </option>
+              {Carreras.map((element, idx) => (
+                <option key={idx} value={element.carrera_abreviatura}>
+                  {element.carrera_abreviatura} - {element.carrera_nombre}
                 </option>
               ))}
             </select>
-          </div>
-
-          <div>
-            <label htmlFor="carrera_nombre">Nombre de la Carrera</label>
-            <input
-              type="text"
-              id="carrera_nombre"
-              onChange={(e) => handleInputChange(e)}
-            />
-          </div>
-          <div>
-            <label htmlFor="carrera_creditos">Creditos Totales</label>
-            <input
-              type="number"
-              id="carrera_creditos"
-              onChange={(e) => handleInputChange(e)}
-            />
-          </div>
-          <div>
-            <label htmlFor="carrera_trimestres">Trimestres Totales</label>
-            <input
-              type="number"
-              id="carrera_trimestres"
-              onChange={(e) => handleInputChange(e)}
-            />
-          </div>
-          <div>
-            <label htmlFor="carrera_asignatura_total">
-              Asignaturas Totales
-            </label>
-            <input
-              type="number"
-              id="carrera_asignatura_total"
-              onChange={(e) => handleInputChange(e)}
-            />
           </div>
 
           <div className="buttonContainer">
@@ -262,4 +291,4 @@ const AddCarrera = () => {
   );
 };
 
-export default AddCarrera;
+export default AddEstudiante;

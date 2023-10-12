@@ -102,6 +102,26 @@ const Dashboard = () => {
             icon: "Report",
             link: "./admin-add-carrera",
           },
+          {
+            text: "Administrar Edificios",
+            icon: "Report",
+            link: "./admin-add-edificio",
+          },
+          {
+            text: "Administrar Estudiantes",
+            icon: "Report",
+            link: "./admin-add-estudiante",
+          },
+          {
+            text: "Administrar Profesores",
+            icon: "Report",
+            link: "./admin-add-profesor",
+          },
+          {
+            text: "Administrar Administradores",
+            icon: "Report",
+            link: "./admin-add-admin",
+          },
           { text: "Clasificacion", icon: "Grade", link: "./student-ranking" },
         ]);
         break;
