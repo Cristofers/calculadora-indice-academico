@@ -105,7 +105,7 @@ const Dashboard = () => {
           {
             text: "Administrar Edificios",
             icon: "Report",
-            link: "./admin-add-edificio",
+            link: "./admin-manage-edificio",
           },
           {
             text: "Administrar Estudiantes",
