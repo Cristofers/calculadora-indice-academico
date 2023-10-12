@@ -138,17 +138,18 @@ const StudentSubjectSelection = () => {
           sessionStorage.getItem("estudiante_trimestre")
         );
 
-      estudiante_seccion.map((element) => {
-        newTrymestry.push([
-          element.seccion.asignatura.asignatura_codigo,
-          element.seccion.asignatura.asignatura_nombre,
-          element.seccion.asignatura.asignatura_creditos,
-          element.profesor_nom + " " + element.profesor_apellido,
-        ]);
-      });
+      estudiante_seccion &&
+        estudiante_seccion.map((element) => {
+          newTrymestry.push([
+            element.seccion.asignatura.asignatura_codigo,
+            element.seccion.asignatura.asignatura_nombre,
+            element.seccion.asignatura.asignatura_creditos,
+            element.profesor_nom + " " + element.profesor_apellido,
+          ]);
+        });
       setActualTrymestry(newTrymestry);
       console.log(estudiante_seccion);
-      setActualTrymestryDate(estudiante_seccion[0].fecha);
+      setActualTrymestryDate(estudiante_seccion && estudiante_seccion[0].fecha);
       // ();
     }
     fetchData();
@@ -162,14 +163,15 @@ const StudentSubjectSelection = () => {
         .from("estudiante_seccion")
         .select("*,seccion(*,asignatura(*))");
 
-      estudiante_seccion.map((element) => {
-        newTrymestry.push([
-          element.seccion.asignatura.asignatura_codigo,
-          element.seccion.asignatura.asignatura_nombre,
-          element.seccion.asignatura.asignatura_creditos,
-          element.profesor_nom + " " + element.profesor_apellido,
-        ]);
-      });
+      estudiante_seccion &&
+        estudiante_seccion.map((element) => {
+          newTrymestry.push([
+            element.seccion.asignatura.asignatura_codigo,
+            element.seccion.asignatura.asignatura_nombre,
+            element.seccion.asignatura.asignatura_creditos,
+            element.profesor_nom + " " + element.profesor_apellido,
+          ]);
+        });
       setAvailableSubjects(newTrymestry);
       // ();
     }

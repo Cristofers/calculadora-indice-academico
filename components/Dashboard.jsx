@@ -90,17 +90,17 @@ const Dashboard = () => {
           {
             text: "Administrar Area Academica",
             icon: "Report",
-            link: "./admin-add-area",
+            link: "./admin-manage-area",
           },
           {
             text: "Administrar Asignatura",
             icon: "Report",
-            link: "./admin-add-asignatura",
+            link: "./admin-manage-asignatura",
           },
           {
             text: "Administrar Carrera",
             icon: "Report",
-            link: "./admin-add-carrera",
+            link: "./admin-manage-carrera",
           },
           {
             text: "Administrar Edificios",
