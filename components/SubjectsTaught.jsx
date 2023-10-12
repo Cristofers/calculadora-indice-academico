@@ -20,25 +20,26 @@ const SubjectsTaught = () => {
 
       console.log(estudiante_seccion);
 
-      estudiante_seccion.map((element) => {
-        qtyEstudiantes += 1;
-        var array = [
-          element.seccion.asignatura_codigo,
-          element.seccion.asignatura.asignatura_creditos,
-          element.seccion.asignatura.asignatura_nombre,
-          element.aula_codigo,
-          " ",
-          " ",
-          " ",
-          " ",
-          " ",
-          " ",
-          // qtyEstudiantes + "/40",
-        ];
-        var day = ParseDay(element.seccion);
-        array[day[0]] = day[1];
-        newActualSubjects.push(array);
-      });
+      estudiante_seccion &&
+        estudiante_seccion.map((element) => {
+          qtyEstudiantes += 1;
+          var array = [
+            element.seccion.asignatura_codigo,
+            element.seccion.asignatura.asignatura_creditos,
+            element.seccion.asignatura.asignatura_nombre,
+            element.aula_codigo,
+            " ",
+            " ",
+            " ",
+            " ",
+            " ",
+            " ",
+            // qtyEstudiantes + "/40",
+          ];
+          var day = ParseDay(element.seccion);
+          array[day[0]] = day[1];
+          newActualSubjects.push(array);
+        });
       setActualSubjects(newActualSubjects);
     }
     fetchData();
