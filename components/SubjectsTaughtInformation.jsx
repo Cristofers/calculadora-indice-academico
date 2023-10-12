@@ -56,10 +56,9 @@ const SubjectsTaughtInformation = () => {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   const supabase = createClient(supabaseUrl, supabaseKey);
+  const [nombreSec, setNombreSec] = useState({seccion:{asignatura:{}}})
   const [Data, setData] = useState([
-    {
-      estudiante: { usuario: { usuario_nombre: "",}, },
-    },
+    [],
   ]);
 
   
@@ -68,19 +67,20 @@ const SubjectsTaughtInformation = () => {
       let seccionID = 2;
       let { data: estudiantes,error } = await supabase
         .from("estudiante_seccion")
-        .select("*, estudiante!inner(*, usuario!inner(*))");
+        .select("*,seccion!inner(*,asignatura!inner(*)), estudiante!inner(*, usuario!inner(*))")
+        .eq("seccion_id", seccionID);
       console.log(estudiantes[0]);
       let newArray = [];
       estudiantes.map((element) =>{
-        newArray.push([[
-          element.estudiante_id,
-          element.estudiante.usuario.usuario_nombre + " " + element.estudiante.usuario.usuario_apellido,
-          element.calificacion,
-          "activo"
-        ]]);
+        let id = element.estudiante_id;
+        let nombre =  element.estudiante.usuario.usuario_nombre + " " + element.estudiante.usuario.usuario_apellido;
+        let calificacion =  element.calificacion;
+        newArray.push([id, nombre, calificacion, "activo"]);
       });
       console.log("estudiante: ");
       console.log(newArray);
+      setNombreSec(estudiantes);
+      console.log(nombreSec.seccion.asignatura.asignatura_nombre);
       setData(newArray);
     }
     fetchData();
@@ -88,7 +88,7 @@ const SubjectsTaughtInformation = () => {
   
   return (
     <SubjectsTaughtContainer>
-      <h2>Estudiantes de: Calculo Diferencial</h2>
+      <h2>Nombre de la seccion</h2>
       <div className="TaughtListInfoContainer">
         <GenericTable
           title="---"
