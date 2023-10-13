@@ -13,9 +13,7 @@ const SubjectsTaking = ({ trymestry, title = "---" }) => {
     async function fetchData() {
       let { data: estudiante_seccion, error } = await supabase
         .from("estudiante_seccion")
-        .select(
-          "*,seccion(*,asignatura(*),seccion_horario!inner(*)),profesor(usuario(*))"
-        )
+        .select("*, seccion(*,asignatura(*)),profesor(*,usuario(*))")
         .eq("estudiante_id", sessionStorage.getItem("usuario_id"));
 
       let newArray = [];
