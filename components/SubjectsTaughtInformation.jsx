@@ -72,6 +72,7 @@ const SubjectsTaughtInformation = ({ sectionID }) => {
 
       let cantidadEstudiantes = estudiante_seccion.length;
       let nombreAsignatura = seccion[0].asignatura.asignatura_nombre;
+      let asignaturaSeccion = seccion[0].seccion_numero;
       let newEstudiantes = [];
       estudiante_seccion.map((estudiante) => {
         newEstudiantes.push([
@@ -81,7 +82,7 @@ const SubjectsTaughtInformation = ({ sectionID }) => {
         ]);
       });
       setEstudiantes(newEstudiantes);
-      setAsigNombre(nombreAsignatura);
+      setAsigNombre(nombreAsignatura + " " + asignaturaSeccion);
     }
     fetchData();
   }, []);
