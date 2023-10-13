@@ -65,7 +65,7 @@ const RankingElementContainer = styled.div`
     align-items: center;
 
     .elementInformation {
-      width: 35%;
+      width: 40%;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -82,7 +82,6 @@ const RankingElementContainer = styled.div`
         padding: 5px;
         border-radius: 5px;
         text-align: center;
-        min-width: 50px;
         width: 30%;
       }
     }
@@ -120,7 +119,7 @@ const Ranking = () => {
         .from("estudiante")
         .select("*, usuario!inner(*)")
         .order("estudiante_indice", { ascending: false });
-      console.log("estudiantes: "+estudiante);  
+      console.log("estudiantes: " + estudiante);
       setData(estudiante);
     }
     fetchData();
@@ -149,11 +148,11 @@ const Ranking = () => {
           {Data.map((element, index) => (
             <div className="rankingElement" key={index}>
               <p>
-                {element.carrera_codigo + 
+                {element.carrera_codigo +
                   ", " +
                   element.usuario.usuario_nombre +
                   " " +
-                  element.usuario.usuario_apellido + 
+                  element.usuario.usuario_apellido +
                   " " +
                   element.usuario.usuario_id}
               </p>

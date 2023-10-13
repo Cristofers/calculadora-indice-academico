@@ -79,6 +79,9 @@ export const Content = styled.div`
     justify-content: space-evenly;
     align-items: center;
     padding: 2.5px 0;
+
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
   }
 
   .contentSubjectsElements {

@@ -55,7 +55,9 @@ export const Formulary = styled.form`
 
   width: 55%;
   input[type="text"],
+  input[type="number"],
   input[type="password"],
+  select,
   textarea {
     background-color: #eeeeee;
     padding: 10px;
