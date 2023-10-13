@@ -123,7 +123,7 @@ const AddProfesor = () => {
       usuario_apellido: inputValues.usuario_apellido,
       usuario_correo: inputValues.usuario_correo,
       usuario_password: inputValues.usuario_password,
-      usuario_rol: 1,
+      usuario_rol: 3,
     };
 
     if (IDtoModify) {

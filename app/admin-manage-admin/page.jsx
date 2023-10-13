@@ -45,6 +45,16 @@ const ManageAdmin = () => {
   };
 
   const DeleteHandler = async (id) => {
+    if (id.toString() == sessionStorage.getItem("usuario_id")) {
+      Swal.fire({
+        title: "Error!",
+        text: "No te puedes eliminar a ti mismo.",
+        icon: "error",
+        confirmButtonText: "Cool",
+      });
+      return;
+    }
+
     const { error } = await MySupabase.from("usuario")
       .delete()
       .eq("usuario_id", id);
@@ -58,13 +68,12 @@ const ManageAdmin = () => {
       });
     } else {
       let newAdmins = [...Admins];
-      console.log("->", newAdmins);
+
       const indexToRemove = newAdmins.findIndex((obj) => obj.usuario_id === id);
 
       if (indexToRemove !== -1) {
         newAdmins.splice(indexToRemove, 1);
         setAdmins(newAdmins);
-        console.log("<--", newAdmins);
       }
 
       const { error } = await MySupabase.from("usuario")
