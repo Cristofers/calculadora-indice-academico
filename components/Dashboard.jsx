@@ -122,6 +122,11 @@ const Dashboard = () => {
             icon: "Report",
             link: "./admin-manage-admin",
           },
+          {
+            text: "Administrar Secciones",
+            icon: "Report",
+            link: "./admin-manage-seccion",
+          },
           { text: "Clasificacion", icon: "Grade", link: "./student-ranking" },
         ]);
         break;
