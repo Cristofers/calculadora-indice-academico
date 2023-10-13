@@ -37,7 +37,7 @@ const ManageAsignatura = () => {
         toast.addEventListener("mouseleave", Swal.resumeTimer);
       },
       titleText: "Dato Insertado",
-      text: `El dato se ha eliminado correctamente el area: ${id}.`,
+      text: `El dato se ha eliminado correctamente la asignatura: ${id}.`,
       icon: "success",
       confirmButtonText: "Aceptar",
     });

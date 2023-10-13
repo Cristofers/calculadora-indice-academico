@@ -93,7 +93,6 @@ const AddSeccion = () => {
     const newInputValues = { ...inputValues };
     newInputValues[event.target.id] = event.target.value;
     setInputValues(newInputValues);
-    console.log(newInputValues);
   };
 
   const SaveData = async (dataToInsert) => {

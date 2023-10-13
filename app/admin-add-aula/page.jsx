@@ -3,35 +3,37 @@ import React, { useEffect, useState } from "react";
 import { Container, Content, Formulary } from "@/components/AdminAdderElement";
 import Dashboard from "../../components/Dashboard";
 import Link from "next/link";
-
+import MySupabase from "../supabase";
 import Swal from "sweetalert2";
 import { useRouter, useSearchParams } from "next/navigation";
-import { createClient } from "@supabase/supabase-js";
 
-const AddEdificio = () => {
+const AddAula = () => {
   const [inputValues, setInputValues] = useState({});
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  const supabase = createClient(supabaseUrl, supabaseKey);
+  const [Edificios, setEdificios] = useState([]);
   const IDtoModify = useSearchParams().get("id");
   const router = useRouter();
 
   useEffect(() => {
     async function fetchData() {
-      let { data: area, error } = await supabase
-        .from("edificio")
+      let { data: area, error } = await MySupabase.from("aula")
         .select("*")
-        .eq("id", IDtoModify);
+        .eq("aula_codigo", IDtoModify);
 
       const newInputValues = { ...inputValues };
-
-      newInputValues["id"] = area[0].id;
-      newInputValues["edificio_nombre"] = area[0].edificio_nombre;
-
+      newInputValues["aula_codigo"] = area[0].aula_codigo;
+      newInputValues["edificio_id"] = area[0].edificio_id;
       setInputValues(newInputValues);
     }
 
     if (IDtoModify) fetchData();
+  }, []);
+
+  useEffect(() => {
+    async function fetchData() {
+      let { data, error } = await MySupabase.from("edificio").select("*");
+      setEdificios(data);
+    }
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -47,8 +49,7 @@ const AddEdificio = () => {
   };
 
   const SaveData = async (dataToInsert) => {
-    const { data, error } = await supabase
-      .from("edificio")
+    const { data, error } = await MySupabase.from("aula")
       .insert([dataToInsert])
       .select();
 
@@ -79,10 +80,9 @@ const AddEdificio = () => {
   };
 
   const UpdateData = async (dataToInsert) => {
-    const { data, error } = await supabase
-      .from("edificio")
+    const { data, error } = await MySupabase.from("aula")
       .update(dataToInsert)
-      .eq("id", IDtoModify)
+      .eq("aula_codigo", IDtoModify)
       .select();
 
     if (error != null) {
@@ -116,7 +116,8 @@ const AddEdificio = () => {
     if (!ValidData()) return;
 
     let data = {
-      edificio_nombre: inputValues.edificio_nombre,
+      aula_codigo: inputValues.aula_codigo,
+      edificio_id: inputValues.edificio_id,
     };
     if (IDtoModify) {
       UpdateData(data);
@@ -133,16 +134,33 @@ const AddEdificio = () => {
     <Container>
       <Dashboard />
       <Content>
-        <h2>Edificio</h2>
+        <h2>Aulas</h2>
         <Formulary>
           <div>
-            <label htmlFor="edificio_nombre">Nombre del Edificio</label>
+            <label htmlFor="aula_codigo">Nombre del Aula</label>
             <input
-              defaultValue={IDtoModify ? inputValues.edificio_nombre : ""}
+              defaultValue={IDtoModify ? inputValues.aula_codigo : ""}
               type="text"
-              id="edificio_nombre"
+              id="aula_codigo"
               onChange={(e) => handleInputChange(e)}
             />
+          </div>
+
+          <div>
+            <label htmlFor="edificio_id">Edificio</label>
+            <select
+              defaultValue={IDtoModify ? inputValues.edificio_id : ""}
+              id="edificio_id"
+              onChange={(e) => handleInputChange(e)}
+            >
+              <option>Seleccionar...</option>
+
+              {Edificios.map((element, idx) => (
+                <option key={idx} value={element.id}>
+                  {element.id} - {element.edificio_nombre}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="buttonContainer">
@@ -157,4 +175,4 @@ const AddEdificio = () => {
   );
 };
 
-export default AddEdificio;
+export default AddAula;

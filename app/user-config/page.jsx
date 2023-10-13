@@ -82,6 +82,7 @@ const Content = styled.div`
         align-items: center;
         text-align: center;
         z-index: 20;
+        display: none;
       }
     }
 

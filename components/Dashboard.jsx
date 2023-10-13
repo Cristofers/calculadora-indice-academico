@@ -108,6 +108,11 @@ const Dashboard = () => {
             link: "./admin-manage-edificio",
           },
           {
+            text: "Administrar Aulas",
+            icon: "Report",
+            link: "./admin-manage-aula",
+          },
+          {
             text: "Administrar Estudiantes",
             icon: "Report",
             link: "./admin-manage-estudiante",
