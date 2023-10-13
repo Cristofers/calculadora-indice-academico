@@ -13,10 +13,10 @@ const SubjectsTaking = ({ trymestry, title = "---" }) => {
     async function fetchData() {
       let { data: estudiante_seccion, error } = await supabase
         .from("estudiante_seccion")
-        .select("*,seccion(*,asignatura(*),seccion_horario!inner(*))")
+        .select(
+          "*,seccion(*,asignatura(*),seccion_horario!inner(*)),profesor(usuario(*))"
+        )
         .eq("estudiante_id", sessionStorage.getItem("usuario_id"));
-
-      console.log(estudiante_seccion);
 
       let newArray = [];
 
@@ -77,7 +77,9 @@ const SubjectsTaking = ({ trymestry, title = "---" }) => {
               jueves,
               viernes,
               sabado,
-              element.profesor_nom,
+              element.profesor.usuario.usuario_nombre +
+                " " +
+                element.profesor.usuario.usuario_apellido,
             ]);
             setData(newArray);
           }

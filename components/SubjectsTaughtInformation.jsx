@@ -68,7 +68,6 @@ const SubjectsTaughtInformation = ({ sectionID }) => {
         .from("seccion")
         .select("*, asignatura!inner(*)")
         .eq("id", 2);
-      console.log("estudiantes: "+seccion[0].asignatura.asignatura_nombre);
 
       let cantidadEstudiantes = estudiante_seccion.length;
       let nombreAsignatura = seccion[0].asignatura.asignatura_nombre;

@@ -73,7 +73,6 @@ const UserConfig = () => {
           .eq("estudiante_id", sessionStorage.getItem("usuario_id"))
           .eq("trimestre_cursado", index);
 
-        // estudiante_seccion.map((trymestry) => {
         if (estudiante_seccion[0]) {
           newTrymestry.push(estudiante_seccion[0]);
         }
@@ -93,7 +92,7 @@ const UserConfig = () => {
         return "Mayo - Julio";
       case 3:
         return "Agosto - Octubre";
-      case 4:
+      default:
         return "Noviembre - Enero";
     }
   };

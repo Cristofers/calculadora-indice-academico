@@ -19,7 +19,6 @@ const ManageSeccion = () => {
       let { data, error } = await MySupabase.from("seccion").select(
         "*,profesor(usuario(*))"
       );
-      console.log(data);
       setSecciones(data);
     }
     fetchData();
