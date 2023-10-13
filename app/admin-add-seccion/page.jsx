@@ -183,6 +183,59 @@ const AddSeccion = () => {
   };
 
   const ValidData = () => {
+    if (inputValues.profesor_id.toString().length != 7) {
+      Swal.fire({
+        title: "Error!",
+        text: "La cantidad de dígitos requeridos para el ID de profesor no es la correcta.",
+        icon: "error",
+        confirmButtonText: "Cool",
+      });
+      return false;
+    }
+
+    if (parseInt(inputValues.seccion_numero) < 1 || inputValues.seccion_numero == null) {
+      Swal.fire({
+        title: "Error!",
+        text: "Este campo debe de ser mayor a 0.",
+        icon: "error",
+        confirmButtonText: "Cool",
+      });
+
+      return false;
+    }
+
+    if (parseInt(inputValues.aula_id) < 1 || inputValues.aula_id == null) {
+      Swal.fire({
+        title: "Error!",
+        text: "Este campo debe de ser mayor a 0.",
+        icon: "error",
+        confirmButtonText: "Cool",
+      });
+
+      return false;
+    }
+    
+    if (parseInt(inputValues.seccion_inicio) < 1 && inputValues.seccion_inicio == null) {
+      Swal.fire({
+        title: "Error!",
+        text: "Este campo debe de ser mayor a 0.",
+        icon: "error",
+        confirmButtonText: "Cool",
+      });
+
+      return false;
+    }
+    
+    if (parseInt(inputValues.seccion_fin) < 1 && inputValues.seccion_fin == null) {
+      Swal.fire({
+        title: "Error!",
+        text: "Este campo debe de ser mayor a 0.",
+        icon: "error",
+        confirmButtonText: "Cool",
+      });
+
+      return false;
+    }
     return true;
   };
 

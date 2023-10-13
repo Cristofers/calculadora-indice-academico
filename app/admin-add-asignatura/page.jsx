@@ -141,6 +141,26 @@ const AddAsignatura = () => {
   };
 
   const ValidData = () => {
+    if (parseInt(inputValues.area_id) < 1) {
+      Swal.fire({
+        title: "Error!",
+        text: "Este campo debe de ser mayor a 0.",
+        icon: "error",
+        confirmButtonText: "Cool",
+      });
+      return false;
+    }
+
+    if (parseInt(inputValues.asignatura_creditos) < 1) {
+      Swal.fire({
+        title: "Error!",
+        text: "Este campo debe de ser mayor a 0.",
+        icon: "error",
+        confirmButtonText: "Cool",
+      });
+      return false;
+    }
+
     return true;
   };
 
