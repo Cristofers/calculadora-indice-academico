@@ -223,11 +223,11 @@ const Login = () => {
             onChange={(e) => handleInputChange(e)}
           />
           <div className="rememberMeContainer">
-            <div className="rememberMe">
+            {/* <div className="rememberMe">
               <input type="checkbox" name="check" id="" />
               <p>Recordar usuario </p>
             </div>
-            <Link href="./">¿Olvidaste tu contraseña?</Link>
+            <Link href="./">¿Olvidaste tu contraseña?</Link> */}
           </div>
           <button
             onClick={(e) => {

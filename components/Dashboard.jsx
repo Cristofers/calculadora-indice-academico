@@ -110,17 +110,17 @@ const Dashboard = () => {
           {
             text: "Administrar Estudiantes",
             icon: "Report",
-            link: "./admin-add-estudiante",
+            link: "./admin-manage-estudiante",
           },
           {
             text: "Administrar Profesores",
             icon: "Report",
-            link: "./admin-add-profesor",
+            link: "./admin-manage-profesor",
           },
           {
             text: "Administrar Administradores",
             icon: "Report",
-            link: "./admin-add-admin",
+            link: "./admin-manage-admin",
           },
           { text: "Clasificacion", icon: "Grade", link: "./student-ranking" },
         ]);
