@@ -39,7 +39,14 @@ const AddSeccion = () => {
       setInputValues(newInputValues);
     }
 
-    if (IDtoModify) fetchData();
+    if (IDtoModify) {
+      fetchData();
+    } else {
+      const newInputValues = { ...inputValues };
+      newInputValues["seccion_activa"] = true;
+      newInputValues["seccion_dia"] = "Lunes";
+      setInputValues(newInputValues);
+    }
   }, []);
 
   useEffect(() => {
@@ -71,7 +78,6 @@ const AddSeccion = () => {
         .select("*, edificio(*)")
         .order("aula_codigo", { ascending: true });
 
-      console.log(data);
       setAulas(data);
     }
     fetchData();
@@ -87,6 +93,7 @@ const AddSeccion = () => {
     const newInputValues = { ...inputValues };
     newInputValues[event.target.id] = event.target.value;
     setInputValues(newInputValues);
+    console.log(newInputValues);
   };
 
   const SaveData = async (dataToInsert) => {
@@ -163,6 +170,9 @@ const AddSeccion = () => {
       seccion_numero: inputValues.seccion_numero,
       seccion_activa: inputValues.seccion_activa,
       aula_id: inputValues.aula_id,
+      seccion_dia: inputValues.seccion_dia,
+      seccion_inicio: inputValues.seccion_inicio,
+      seccion_fin: inputValues.seccion_fin,
     };
 
     if (IDtoModify) {
@@ -247,13 +257,17 @@ const AddSeccion = () => {
               id="seccion_activa"
               onChange={(e) => handleInputChange(e)}
             >
-              {IDtoModify && inputValues.seccion_activa ? (
-                <option>Activa (Default)</option>
+              {IDtoModify ? (
+                inputValues.seccion_activa ? (
+                  <option>Activa (Default)</option>
+                ) : (
+                  <option>Inactiva (Default)</option>
+                )
               ) : (
-                <option>Inactiva (Default)</option>
+                <></>
               )}
-              <option>Activa</option>
-              <option>Inactiva</option>
+              <option value={true}>Activa</option>
+              <option value={false}>Inactiva</option>
             </select>
           </div>
           <div>

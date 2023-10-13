@@ -44,9 +44,7 @@ const ManageSeccion = () => {
   };
 
   const DeleteHandler = async (id) => {
-    const { error } = await MySupabase.from("profesor")
-      .delete()
-      .eq("profesor_id", id);
+    const { error } = await MySupabase.from("seccion").delete().eq("id", id);
 
     if (error != null) {
       Swal.fire({
@@ -56,30 +54,7 @@ const ManageSeccion = () => {
         confirmButtonText: "Cool",
       });
     } else {
-      let newSecciones = [...Secciones];
-      const indexToRemove = newSecciones.findIndex(
-        (obj) => obj.profesor_id === id
-      );
-
-      if (indexToRemove !== -1) {
-        newSecciones.splice(indexToRemove, 1);
-        setSecciones(newSecciones);
-      }
-
-      const { error } = await MySupabase.from("usuario")
-        .delete()
-        .eq("usuario_id", id);
-
-      if (error != null) {
-        Swal.fire({
-          title: "Error!",
-          text: JSON.stringify(error),
-          icon: "error",
-          confirmButtonText: "Cool",
-        });
-      } else {
-        RemoveMessage(id);
-      }
+      RemoveMessage(id);
     }
   };
 
@@ -98,6 +73,7 @@ const ManageSeccion = () => {
             <p>Seccion</p>
             <p>Profesor</p>
             <p>Aula</p>
+            <p>Fecha</p>
             <div>
               <p>Acciones</p>
             </div>
@@ -114,6 +90,10 @@ const ManageSeccion = () => {
                     {element.profesor.usuario.usuario_apellido}
                   </p>
                   <p>{element.aula_id}</p>
+                  <p>
+                    {element.seccion_dia} ({element.seccion_inicio}/
+                    {element.seccion_fin})
+                  </p>
 
                   <div>
                     <Link
@@ -124,9 +104,7 @@ const ManageSeccion = () => {
                     >
                       <button>Modificar</button>
                     </Link>
-                    <button
-                      onClick={() => DeleteHandler(element.usuario.usuario_id)}
-                    >
+                    <button onClick={() => DeleteHandler(element.id)}>
                       Eliminar
                     </button>
                   </div>
