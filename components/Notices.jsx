@@ -27,7 +27,7 @@ const NoticesContainer = styled.div`
   }
 `;
 
-const NoticesList = styled.div`
+const NoticesQty = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,32 +40,26 @@ const NoticesList = styled.div`
   margin: 10px;
 
   p {
-    font-size: 12.5px;
-    text-align: left;
+    font-size: 20px;
+    text-align: center;
     display: inline-block;
-    width: 127px;
   }
 `;
 
 const Notices = () => {
-
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  const usuario = 1104369;//esta variable debe ser sustituida por el id del usuario que este registrado
+  const usuario = sessionStorage.getItem("usuario_id");
   const supabase = createClient(supabaseUrl, supabaseKey);
-  const [Data, setData] = useState([
-    {
-      usuario: "",
-    },
-  ]);
+  const [Data, setData] = useState([{}]);
 
   useEffect(() => {
     async function fetchData() {
       let { data: avisos, error } = await supabase
         .from("avisos")
         .select("*")
-        .eq('usuario_id', usuario);
-      console.log("avisos: "+ avisos[0].avisos_descripcion);  
+        .eq("usuario_id", usuario);
+      console.log("avisos: " + avisos[0].avisos_descripcion);
       setData(avisos);
     }
     fetchData();
@@ -74,11 +68,13 @@ const Notices = () => {
   return (
     <NoticesContainer>
       <h2>Avisos</h2>
-      <NoticesList>
-        {Data.map((element) => (
-          <p>{element.avisos_descripcion}</p>
-        ))}
-      </NoticesList>
+      <NoticesQty>
+        {Data.length > 0 ? (
+          <p>Tienes: {Data.length} avisos</p>
+        ) : (
+          <p>No tienes ningun aviso</p>
+        )}
+      </NoticesQty>
     </NoticesContainer>
   );
 };
