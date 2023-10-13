@@ -16,7 +16,10 @@ const SubjectsTaking = ({ trymestry, title = "---" }) => {
         .select("*,seccion(*,asignatura(*),seccion_horario!inner(*))")
         .eq("estudiante_id", sessionStorage.getItem("usuario_id"));
 
+      console.log(estudiante_seccion);
+
       let newArray = [];
+
       estudiante_seccion &&
         estudiante_seccion.map((element) => {
           if (element.trimestre_cursado == trymestry) {

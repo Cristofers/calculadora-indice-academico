@@ -75,14 +75,11 @@ const GeneralStudentData = ({ trymestry = -1 }) => {
       />
       <CircularProgressBar
         text={`Trimestres cursados de ${User.carrera_trimestres}`}
-        number={User.estudiante_trimestre}
+        number={User.trimestre}
         Data={{
           datasets: [
             {
-              data: [
-                User.estudiante_trimestre,
-                User.carrera_trimestres - User.estudiante_trimestre,
-              ],
+              data: [User.trimestre, User.carrera_trimestres - User.trimestre],
               borderColor: "transparent",
               backgroundColor: ["#C2C0A6", "#ffffff"],
             },

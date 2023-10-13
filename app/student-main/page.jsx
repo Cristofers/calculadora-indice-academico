@@ -59,7 +59,7 @@ function StudentMain() {
       <GeneralStudentData />
       <SubjectsTaking
         title="Asignaturas Seleccionadas"
-        trymestry={sessionStorage.getItem("estudiante_trimestre")}
+        trymestry={sessionStorage.getItem("trimestre")}
       />
     </StudentContainer>
   );

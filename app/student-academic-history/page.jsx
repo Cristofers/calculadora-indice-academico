@@ -63,7 +63,7 @@ const UserConfig = () => {
     async function fetchData() {
       const newTrymestry = [];
       for (
-        let index = sessionStorage.getItem("estudiante_trimestre");
+        let index = sessionStorage.getItem("trimestre");
         index > 0;
         index--
       ) {
