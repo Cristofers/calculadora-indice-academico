@@ -266,11 +266,13 @@ const AddEstudiante = () => {
               id="carrera_codigo"
               onChange={(e) => handleInputChange(e)}
             >
-              {IDtoModify && (
+              {IDtoModify ? (
                 <option value={inputValues.carrera_abreviatura}>
                   {inputValues.carrera_abreviatura} -{" "}
                   {inputValues.carrera_nombre}
                 </option>
+              ) : (
+                <option>Seleccionar...</option>
               )}
               {Carreras.map((element, idx) => (
                 <option key={idx} value={element.carrera_abreviatura}>
