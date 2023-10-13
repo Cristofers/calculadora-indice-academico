@@ -31,7 +31,6 @@ const AddProfesor = () => {
       newInputValues["usuario_password"] = area[0].usuario_password;
 
       setInputValues(newInputValues);
-      console.log(newInputValues);
     }
 
     if (IDtoModify) fetchData();

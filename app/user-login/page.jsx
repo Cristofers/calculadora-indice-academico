@@ -192,7 +192,6 @@ const Login = () => {
       .eq("usuario_correo", inputValues.email)
       .eq("usuario_password", inputValues.pass);
 
-    console.log(usuario[0]);
     LSH_SaveUserInformation(usuario[0]);
     router.push("/admin-main");
   };

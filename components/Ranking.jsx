@@ -119,7 +119,6 @@ const Ranking = () => {
         .from("estudiante")
         .select("*, usuario!inner(*)")
         .order("estudiante_indice", { ascending: false });
-      console.log("estudiantes: " + estudiante);
       setData(estudiante);
     }
     fetchData();

@@ -28,8 +28,6 @@ const GeneralStudentData = ({ trymestry = -1 }) => {
       let { data: estudiante_seccion, error } = await supabase
         .from("estudiante_seccion")
         .select("*");
-
-      // console.log(estudiante_seccion);
     }
 
     if (LSH_UserLogged) {

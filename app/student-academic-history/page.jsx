@@ -76,7 +76,6 @@ const UserConfig = () => {
         // estudiante_seccion.map((trymestry) => {
         if (estudiante_seccion[0]) {
           newTrymestry.push(estudiante_seccion[0]);
-          console.log(estudiante_seccion[0]);
         }
         // });
       }

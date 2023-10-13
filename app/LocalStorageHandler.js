@@ -1,5 +1,4 @@
 const LSH_SaveUserInformation = (user) => {
-  // console.log(user);
   sessionStorage.setItem("usuario_apellido", user.usuario_apellido);
   sessionStorage.setItem("usuario_correo", user.usuario_correo);
   sessionStorage.setItem("usuario_id", user.usuario_id);

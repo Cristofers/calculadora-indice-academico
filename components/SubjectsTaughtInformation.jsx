@@ -51,51 +51,42 @@ const SubjectsTaughtContainer = styled.div`
   }
 `;
 
-const SubjectsTaughtInformation = () => {
-
+const SubjectsTaughtInformation = ({ sectionID }) => {
+  const [Estudiantes, setEstudiantes] = useState([]);
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   const supabase = createClient(supabaseUrl, supabaseKey);
-  const [nombreSec, setNombreSec] = useState({seccion:{asignatura:{}}})
-  const [Data, setData] = useState([
-    [],
-  ]);
 
-  
   useEffect(() => {
     async function fetchData() {
-      let seccionID = 2;
-      let { data: estudiantes,error } = await supabase
+      let { data: estudiante_seccion, error } = await supabase
         .from("estudiante_seccion")
-        .select("*,seccion!inner(*,asignatura!inner(*)), estudiante!inner(*, usuario!inner(*))")
-        .eq("seccion_id", seccionID);
-      console.log(estudiantes[0]);
-      let newArray = [];
-      estudiantes.map((element) =>{
-        let id = element.estudiante_id;
-        let nombre =  element.estudiante.usuario.usuario_nombre + " " + element.estudiante.usuario.usuario_apellido;
-        let calificacion =  element.calificacion;
-        newArray.push([id, nombre, calificacion, "activo"]);
+        .select("*, estudiante(*, usuario(*))")
+        .eq("seccion_id", sectionID);
+      console.log(estudiante_seccion);
+
+      let newEstudiantes = [];
+      estudiante_seccion.map((estudiante) => {
+        newEstudiantes.push([
+          estudiante.estudiante_id,
+          estudiante.estudiante.usuario.usuario_nombre,
+          estudiante.calificacion,
+        ]);
       });
-      console.log("estudiante: ");
-      console.log(newArray);
-      setNombreSec(estudiantes);
-      console.log(nombreSec.seccion.asignatura.asignatura_nombre);
-      setData(newArray);
+      setEstudiantes(newEstudiantes);
     }
     fetchData();
   }, []);
-  
+
   return (
     <SubjectsTaughtContainer>
       <h2>Nombre de la seccion</h2>
       <div className="TaughtListInfoContainer">
         <GenericTable
           title="---"
-          columns={["ID", "Nombre", "Calificacion Actual", "Acciones"]}
-          data={Data}
+          columns={["ID", "Nombre", "Calificacion Actual"]}
+          data={Estudiantes}
         />
-        <CircularProgressBar />
       </div>
     </SubjectsTaughtContainer>
   );

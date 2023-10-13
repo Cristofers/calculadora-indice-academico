@@ -190,7 +190,6 @@ const UserConfig = () => {
     const newInputValues = { ...InputValues };
     newInputValues[event.target.id] = event.target.value;
     setInputValues(newInputValues);
-    console.log(newInputValues);
   };
 
   return (

@@ -148,7 +148,6 @@ const StudentSubjectSelection = () => {
           ]);
         });
       setActualTrymestry(newTrymestry);
-      console.log(estudiante_seccion);
       setActualTrymestryDate(estudiante_seccion && estudiante_seccion[0].fecha);
       // ();
     }

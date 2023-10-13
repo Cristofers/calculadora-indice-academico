@@ -33,7 +33,6 @@ const AddProfesor = () => {
       newInputValues["area_id"] = area[0].area.id;
 
       setInputValues(newInputValues);
-      console.log(newInputValues);
     }
 
     if (IDtoModify) fetchData();

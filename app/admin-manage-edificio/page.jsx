@@ -55,13 +55,11 @@ const ManageEdificio = () => {
       });
     } else {
       let newEdificios = [...Edificios];
-      console.log("->", newEdificios);
       const indexToRemove = newEdificios.findIndex((obj) => obj.id === id);
 
       if (indexToRemove !== -1) {
         newEdificios.splice(indexToRemove, 1);
         setEdificios(newEdificios);
-        console.log("<--", newEdificios);
       }
       RemoveMessage(id);
     }

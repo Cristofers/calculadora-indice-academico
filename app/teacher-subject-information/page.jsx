@@ -5,7 +5,7 @@ import GeneralStudentData from "../../components/GeneralData";
 import styled from "styled-components";
 import Notices from "../../components/Notices";
 import SubjectsTaughtInformation from "../../components/SubjectsTaughtInformation";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const TeacherContainer = styled.div`
   height: 100%;
@@ -44,6 +44,8 @@ const TeacherContainer = styled.div`
 
 function TeacherSubjetInformation() {
   const router = useRouter();
+  const ID = useSearchParams().get("id");
+
   useEffect(() => {
     if (sessionStorage.getItem("usuario_rol") != 2) {
       router.push("./");
@@ -55,7 +57,7 @@ function TeacherSubjetInformation() {
       <Dashboard />
       <GeneralStudentData />
       <Notices />
-      <SubjectsTaughtInformation />
+      <SubjectsTaughtInformation sectionID={ID} />
     </TeacherContainer>
   );
 }

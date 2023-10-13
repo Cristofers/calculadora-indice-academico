@@ -23,7 +23,6 @@ const ManageEstudiante = () => {
         .select("*, usuario!inner(*), carrera!inner(*)")
         .order("usuario(usuario_rol)", { ascending: true });
       setEstudiantes(data);
-      console.log(data);
     }
     fetchData();
   }, []);
@@ -60,7 +59,6 @@ const ManageEstudiante = () => {
       });
     } else {
       let newEstudiantes = [...Estudiantes];
-      console.log("->", newEstudiantes);
       const indexToRemove = newEstudiantes.findIndex(
         (obj) => obj.estudiante_id === id
       );
@@ -68,7 +66,6 @@ const ManageEstudiante = () => {
       if (indexToRemove !== -1) {
         newEstudiantes.splice(indexToRemove, 1);
         setEstudiantes(newEstudiantes);
-        console.log("<--", newEstudiantes);
       }
 
       const { error } = await MySupabase.from("usuario")

@@ -21,7 +21,6 @@ const ManageAdmin = () => {
         .select("*")
         .eq("usuario_rol", 3);
       setAdmins(data);
-      console.log(data);
     }
     fetchData();
   }, []);

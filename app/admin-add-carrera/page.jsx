@@ -46,7 +46,6 @@ const AddCarrera = () => {
         .select("*")
         .order("area_nombre", { ascending: true });
       setAreaIDValue(area);
-      console.log(area);
     }
     fetchData();
   }, []);

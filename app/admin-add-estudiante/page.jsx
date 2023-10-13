@@ -35,7 +35,6 @@ const AddEstudiante = () => {
       newInputValues["carrera_abreviatura"] =
         area[0].carrera.carrera_abreviatura;
       setInputValues(newInputValues);
-      console.log(newInputValues);
     }
 
     if (IDtoModify) fetchData();

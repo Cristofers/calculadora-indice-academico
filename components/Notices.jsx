@@ -59,7 +59,6 @@ const Notices = () => {
         .from("avisos")
         .select("*")
         .eq("usuario_id", usuario);
-      console.log("avisos: " + avisos[0].avisos_descripcion);
       setData(avisos);
     }
     fetchData();

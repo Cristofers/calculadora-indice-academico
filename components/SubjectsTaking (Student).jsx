@@ -21,7 +21,6 @@ const SubjectsTaking = ({ trymestry, title = "---" }) => {
         estudiante_seccion.map((element) => {
           if (element.trimestre_cursado == trymestry) {
             let lunes, martes, miercoles, jueves, viernes, sabado;
-            console.log(element.seccion.seccion_horario);
 
             switch (element.seccion.seccion_horario.dia.toLowerCase()) {
               case "lunes":
@@ -29,7 +28,6 @@ const SubjectsTaking = ({ trymestry, title = "---" }) => {
                   element.seccion.seccion_horario.hora_inicio +
                   " / " +
                   element.seccion.seccion_horario.hora_fin;
-                console.log(lunes);
                 break;
               case "martes":
                 martes =

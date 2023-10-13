@@ -24,7 +24,6 @@ const AddEdificio = () => {
   const handleInputChange = (event) => {
     const newInputValues = { ...inputValues };
     newInputValues[event.target.id] = event.target.value;
-    console.log(newInputValues);
     setInputValues(newInputValues);
   };
 

@@ -57,13 +57,11 @@ const ManageArea = () => {
       });
     } else {
       let newAreas = [...Areas];
-      console.log("->", newAreas);
       const indexToRemove = newAreas.findIndex((obj) => obj.area_nombre === id);
 
       if (indexToRemove !== -1) {
         newAreas.splice(indexToRemove, 1);
         setAreas(newAreas);
-        console.log("<--", newAreas);
       }
       RemoveMessage(id);
     }

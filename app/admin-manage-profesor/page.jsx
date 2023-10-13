@@ -21,7 +21,6 @@ const ManageProfesor = () => {
         "*, usuario!inner(*), area!inner(*)"
       );
       setProfesores(data);
-      console.log(data);
     }
     fetchData();
   }, []);
@@ -58,7 +57,6 @@ const ManageProfesor = () => {
       });
     } else {
       let newProfesores = [...Profesores];
-      console.log("->", newProfesores);
       const indexToRemove = newProfesores.findIndex(
         (obj) => obj.profesor_id === id
       );
@@ -66,7 +64,6 @@ const ManageProfesor = () => {
       if (indexToRemove !== -1) {
         newProfesores.splice(indexToRemove, 1);
         setProfesores(newProfesores);
-        console.log("<--", newProfesores);
       }
 
       const { error } = await MySupabase.from("usuario")
