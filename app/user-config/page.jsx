@@ -1,9 +1,11 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Dashboard from "../../components/Dashboard";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import MySupabase from "../supabase";
+import Swal from "sweetalert2";
 
 const Container = styled.div`
   height: 100%;
@@ -86,6 +88,7 @@ const Content = styled.div`
     .BasicInformation {
       width: 55%;
       input[type="text"],
+      input[type="number"],
       input[type="password"],
       textarea {
         background-color: #eeeeee;
@@ -124,12 +127,71 @@ const Content = styled.div`
 `;
 
 const UserConfig = () => {
+  const [InputValues, setInputValues] = useState({});
+  const [Usuario, setUsuario] = useState([]);
   const router = useRouter();
+
+  useEffect(() => {
+    async function fetchData() {
+      let { data: usuario, error } = await MySupabase.from("usuario")
+        .select("*")
+        .eq("usuario_id", sessionStorage.getItem("usuario_id"));
+
+      const newInputValues = { ...InputValues };
+      newInputValues["usuario_password"] = usuario[0].usuario_password;
+      newInputValues["usuario_telefono"] = usuario[0].usuario_telefono;
+      setInputValues(newInputValues);
+      setUsuario(usuario[0]);
+    }
+
+    fetchData();
+  }, []);
+
   useEffect(() => {
     if (sessionStorage.getItem("usuario_rol") == null) {
       router.push("./");
     }
   }, []);
+
+  const SaveHandler = async (e) => {
+    e.preventDefault();
+    const { data, error } = await MySupabase.from("usuario")
+      .update(InputValues)
+      .eq("usuario_id", sessionStorage.getItem("usuario_id"))
+      .select();
+
+    if (error != null) {
+      Swal.fire({
+        title: "Error!",
+        text: JSON.stringify(error),
+        icon: "error",
+        confirmButtonText: "Cool",
+      });
+    } else {
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 10000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+        titleText: "Dato Insertado",
+        text: "El dato se ha guardado correctamente.",
+        icon: "success",
+        confirmButtonText: "Aceptar",
+      });
+    }
+  };
+
+  const handleInputChange = (event) => {
+    const newInputValues = { ...InputValues };
+    newInputValues[event.target.id] = event.target.value;
+    setInputValues(newInputValues);
+    console.log(newInputValues);
+  };
 
   return (
     <Container>
@@ -151,22 +213,28 @@ const UserConfig = () => {
 
           <div className="BasicInformation">
             <div className="password">
-              <label htmlFor="pass">Contraseña</label>
-              <input type="password" id="pass" />
+              <label htmlFor="usuario_password">Contraseña</label>
+              <input
+                onChange={(e) => handleInputChange(e)}
+                defaultValue={Usuario.usuario_password}
+                type="password"
+                id="usuario_password"
+              />
             </div>
 
             <div className="phone">
-              <label htmlFor="phone">Telefono</label>
-              <input type="text" id="phone" />
-            </div>
-
-            <div className="description">
-              <label htmlFor="desc">Descripción</label>
-              <textarea id="desc"></textarea>
+              <label htmlFor="usuario_telefono">Telefono</label>
+              <input
+                onChange={(e) => handleInputChange(e)}
+                defaultValue={Usuario.usuario_telefono}
+                type="number"
+                autoComplete="off"
+                id="usuario_telefono"
+              />
             </div>
 
             <div className="buttonContainer">
-              <button>Actualizar</button>
+              <button onClick={(e) => SaveHandler(e)}>Actualizar</button>
               <button>Cancelar</button>
             </div>
           </div>
