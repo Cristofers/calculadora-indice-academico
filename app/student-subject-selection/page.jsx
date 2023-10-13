@@ -46,6 +46,7 @@ const StudentSubjectSelection = () => {
         "seccion"
       ).select("*,asignatura(*),profesor(*,usuario(*))");
 
+      console.log(estudiante_seccion);
       setAvailableSubjects(estudiante_seccion);
     }
     fetchData();
@@ -71,6 +72,7 @@ const StudentSubjectSelection = () => {
             <p>Nombre</p>
             <p>Credito</p>
             <p>Profesor</p>
+            <p>Horario</p>
             <p>Total: {ActualTrymestry.length}</p>
           </div>
           <div className="actualSubjectsElements">
@@ -80,6 +82,11 @@ const StudentSubjectSelection = () => {
                 <p>{element.seccion.asignatura.asignatura_nombre}</p>
                 <p>{element.seccion.asignatura.asignatura_creditos}</p>
                 <p>{element.profesor.usuario.usuario_nombre}</p>
+                <p>
+                  {element.seccion.seccion_dia} (
+                  {element.seccion.seccion_inicio}/{element.seccion.seccion_fin}
+                  )
+                </p>
                 <button onClick={() => RemoveHandler(element)}>Remover</button>
               </div>
             ))}
@@ -95,6 +102,7 @@ const StudentSubjectSelection = () => {
             <p>Nombre</p>
             <p>Credito</p>
             <p>Profesor</p>
+            <p>Horario</p>
             <p>Total: {AvailableSubjects.length}</p>
           </div>
           <div className="actualSubjectsElements">
@@ -104,7 +112,10 @@ const StudentSubjectSelection = () => {
                 <p>{element.asignatura.asignatura_nombre}</p>
                 <p>{element.asignatura.asignatura_creditos}</p>
                 <p>{element.profesor.usuario.usuario_nombre}</p>
-
+                <p>
+                  {element.seccion_dia} ({element.seccion_inicio}/
+                  {element.seccion_fin})
+                </p>
                 <button onClick={() => AddHandler(element)}>Agregar</button>
               </div>
             ))}
