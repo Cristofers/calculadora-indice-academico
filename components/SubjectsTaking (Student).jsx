@@ -25,42 +25,42 @@ const SubjectsTaking = ({ trymestry, title = "---" }) => {
           if (element.trimestre_cursado == trymestry) {
             let lunes, martes, miercoles, jueves, viernes, sabado;
 
-            switch (element.seccion.seccion_horario.dia.toLowerCase()) {
+            switch (element.seccion.seccion_dia.toLowerCase()) {
               case "lunes":
                 lunes =
-                  element.seccion.seccion_horario.hora_inicio +
+                  element.seccion.seccion_inicio +
                   " / " +
-                  element.seccion.seccion_horario.hora_fin;
+                  element.seccion.seccion_fin;
                 break;
               case "martes":
                 martes =
-                  element.seccion.seccion_horario.hora_inicio +
+                  element.seccion.seccion_inicio +
                   " / " +
-                  element.seccion.seccion_horario.hora_fin;
+                  element.seccion.seccion_fin;
                 break;
               case "miercoles":
                 miercoles =
-                  element.seccion.seccion_horario.hora_inicio +
+                  element.seccion.seccion_inicio +
                   " / " +
-                  element.seccion.seccion_horario.hora_fin;
+                  element.seccion.seccion_fin;
                 break;
               case "jueves":
                 jueves =
-                  element.seccion.seccion_horario.hora_inicio +
+                  element.seccion.seccion_inicio +
                   " / " +
-                  element.seccion.seccion_horario.hora_fin;
+                  element.seccion.seccion_fin;
                 break;
               case "viernes":
                 viernes =
-                  element.seccion.seccion_horario.hora_inicio +
+                  element.seccion.seccion_inicio +
                   " / " +
-                  element.seccion.seccion_horario.hora_fin;
+                  element.seccion.seccion_fin;
                 break;
               case "sabado":
                 sabado =
-                  element.seccion.seccion_horario.hora_inicio +
+                  element.seccion.seccion_inicio +
                   " / " +
-                  element.seccion.seccion_horario.hora_fin;
+                  element.seccion.seccion_fin;
                 break;
             }
 
