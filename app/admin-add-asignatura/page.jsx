@@ -194,6 +194,7 @@ const AddAsignatura = () => {
               defaultValue={IDtoModify ? inputValues.asignatura_creditos : ""}
               type="number"
               id="asignatura_creditos"
+              min="1"
               onChange={(e) => handleInputChange(e)}
             />
           </div>
