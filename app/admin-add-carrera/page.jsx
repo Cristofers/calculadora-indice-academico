@@ -31,8 +31,7 @@ const AddCarrera = () => {
       newInputValues["carrera_nombre"] = area[0].carrera_nombre;
       newInputValues["carrera_creditos"] = area[0].carrera_creditos;
       newInputValues["carrera_trimestres"] = area[0].carrera_trimestres;
-      newInputValues["carrera_asignatura_total"] =
-        area[0].carrera_asignatura_total;
+      newInputValues["carrera_asignatura_total"] = area[0].carrera_asignatura_total;
       setInputValues(newInputValues);
     }
 
@@ -147,6 +146,35 @@ const AddCarrera = () => {
   };
 
   const ValidData = () => {
+    
+    if (parseInt(inputValues.carrera_creditos) < 1 || inputValues.carrera_creditos == null) {
+      Swal.fire({
+        title: "Error!",
+        text: "Este campo debe de ser mayor a 0.",
+        icon: "error",
+        confirmButtonText: "Cool",
+      });
+      return false;
+    }
+    if (parseInt(inputValues.carrera_trimestres) < 1 || inputValues.carrera_trimestres == null) {
+      Swal.fire({
+        title: "Error!",
+        text: "Este campo debe de ser mayor a 0.",
+        icon: "error",
+        confirmButtonText: "Cool",
+      });
+      return false;
+    }
+    if (parseInt(inputValues.carrera_asignatura_total) < 1 || inputValues.carrera_asignatura_total == null) {
+      Swal.fire({
+        title: "Error!",
+        text: "Este campo debe de ser mayor a 0.",
+        icon: "error",
+        confirmButtonText: "Cool",
+      });
+      return false;
+    }
+
     return true;
   };
 
